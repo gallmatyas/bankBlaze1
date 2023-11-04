@@ -1,18 +1,22 @@
 package hu.bankblaze.bankblaze.service;
 
+import hu.bankblaze.bankblaze.model.QueueNumber;
+import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class QueueNumberService {
 
     @Autowired
     private QueueNumberRepository queueNumberRepository;
 
-    public QueueNumber generateQueueNumber(QueueNumber newQueueNumber) {
-        newQueueNumber.setQueueNumber(generateQueueNumberLogic());
-        return queueNumberRepository.save(newQueueNumber);
-    }
+
 
     public void deleteQueueNumberById(Long id) {
         queueNumberRepository.deleteById(id);
@@ -34,8 +38,8 @@ public class QueueNumberService {
         return queueNumberRepository.findAll();
     }
 
-    private int generateQueueNumberLogic() {
-        return (int) (Math.random() * 100) + 1;
+    public void generateQueueNumber(QueueNumber newQueueNumber) {
+        queueNumberRepository.save(newQueueNumber);
     }
 }
 
