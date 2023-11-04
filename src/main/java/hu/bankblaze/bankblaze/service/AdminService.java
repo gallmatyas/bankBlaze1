@@ -19,6 +19,10 @@ public class AdminService {
     public void saveAdmin (Employee employee) {
         employeeRepository.save(employee);
     }
+    public void deleteAdmin( Long id) {
+        employeeRepository.deleteById(id);
+    }
+
 
 
 }
