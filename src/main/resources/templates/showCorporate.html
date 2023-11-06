@@ -5,18 +5,18 @@
     <title>BankBlaze</title>
 </head>
 <body>
-<h1>Lakossági Szolgáltatások</h1>
+<h1>Vállalati Szolgáltatások</h1>
 <div>
-    <a th:href="@{/queueNumber}" th:text="${corporates.get(0).name}"></a>
-</div>
-<div>
-    <a th:href="@{/queueNumber}" th:text="${corporates.get(1).name}"></a>
-</div>
-<div>
-    <a th:href="@{/queueNumber}" th:text="${corporates.get(2).name}"></a>
-</div>
-<div>
-    <a th:href="@{/queueNumber}" th:text="${corporates.get(3).name}"></a>
+    <table>
+        <tr>
+            <td th:href="@{/queueNumber}" th:text="${corporates.get(0).name}"></td>
+            <td th:href="@{/queueNumber}" th:text="${corporates.get(1).name}"></td>
+        </tr>
+        <tr>
+            <td th:href="@{/queueNumber}" th:text="${corporates.get(2).name}"></td>
+            <td th:href="@{/queueNumber}" th:text="${corporates.get(3).name}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
