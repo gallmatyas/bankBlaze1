@@ -23,11 +23,11 @@ public class TellerController {
     public String showTellers(Model model) {
         List<Teller> tellers = tellerService.getAllTellers();
         model.addAttribute("tellers", tellers);
-        return "showteller";
+        return "showTeller";
     }
 
-    @GetMapping("/queuenumber")
+    @GetMapping("/queueNumber")
     public String queueNumberPage() {
-        return "queuenumber";
+        return "queueNumber";
     }
 }
