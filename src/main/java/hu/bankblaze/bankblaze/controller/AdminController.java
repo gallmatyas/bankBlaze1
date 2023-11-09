@@ -16,6 +16,11 @@ public class AdminController {
 
     private AdminService adminService;
 
+    @GetMapping
+    public String getAdmin(){
+        return "admin";
+    }
+
     @GetMapping("/{id}")
     public String getAdminById (Model model, @PathVariable Long id) {
         Employee employee = adminService.getAdminById(id);
