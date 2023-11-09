@@ -19,7 +19,7 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/queue/**").permitAll()
+                        .requestMatchers("/", "/home", "/queue/**","/corporate/**","/retail/**","/tellers/**").permitAll()
                         .anyRequest().authenticated()
 
                 )
