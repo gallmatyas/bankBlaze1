@@ -1,7 +1,10 @@
 package hu.bankblaze.bankblaze.service;
 
+import hu.bankblaze.bankblaze.model.Corporate;
+import hu.bankblaze.bankblaze.repo.CorporateRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CorporateService {
+    @Autowired
     private CorporateRepository corporateRepository;
 
     public List<Corporate> getAllCorporates() {
