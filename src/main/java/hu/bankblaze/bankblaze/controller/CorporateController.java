@@ -1,5 +1,6 @@
 package hu.bankblaze.bankblaze.controller;
 
+import hu.bankblaze.bankblaze.service.CorporateService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

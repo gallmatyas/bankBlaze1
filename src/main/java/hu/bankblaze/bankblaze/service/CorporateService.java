@@ -1,5 +1,7 @@
 package hu.bankblaze.bankblaze.service;
 
+import hu.bankblaze.bankblaze.model.Corporate;
+import hu.bankblaze.bankblaze.repo.CorporateRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
