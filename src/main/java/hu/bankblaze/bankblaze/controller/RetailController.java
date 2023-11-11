@@ -16,7 +16,7 @@ public class RetailController {
 
     private RetailService retailService;
 
-    @GetMapping()
+    @GetMapping
     public String getAllRetail(Model model){
         model.addAttribute("retails",retailService.getAllRetail());
         return "showRetail";
