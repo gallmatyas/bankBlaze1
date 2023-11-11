@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pénztár</title>
-    <link rel="stylesheet" href="resources/static/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <table class="main-table">
@@ -19,12 +19,12 @@
 <div class="container">
     <table class="menu-table">
         <tr>
-            <td><a class="menu-button" href="queueNumber.html">Pénztár befizetés</a></td>
-            <td><a class="menu-button" href="queueNumber.html">Pénztár kifizetés</a></td>
+            <td><a class="menu-button" th:href="@{/queue/queueNumber}">Pénztár befizetés</a></td>
+            <td><a class="menu-button" th:href="@{/queue/queueNumber}">Pénztár kifizetés</a></td>
         </tr>
 
         <tr>
-            <td colspan="2"><a class="menu-button" href="queueNumber.html">Valutaváltás</a></td>
+            <td colspan="2"><a class="menu-button" th:href="@{/queue/queueNumber}">Valutaváltás</a></td>
         </tr>
     </table>
 </div>

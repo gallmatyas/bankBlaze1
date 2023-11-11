@@ -3,6 +3,7 @@ package hu.bankblaze.bankblaze.service;
 import hu.bankblaze.bankblaze.model.Retail;
 import hu.bankblaze.bankblaze.repo.RetailRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RetailService {
 
+    @Autowired
     private RetailRepository retailRepository;
 
     public List<Retail> getAllRetail () {
