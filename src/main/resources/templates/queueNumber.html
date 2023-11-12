@@ -5,7 +5,7 @@
     <title>BankBlaze Get a number</title>
 </head>
 <body>
-<h1>Ön a ........... Szolgáltatásokat választotta</h1>
+<h1 th:text="'Ön a ' + ${header} + ' Szolgáltatásokat választotta'"></h1>
 <h1>Kérjük adja meg a nevét!</h1>
 <form th:action="@{/queue/queueNumber}" method="post">
     <label>
