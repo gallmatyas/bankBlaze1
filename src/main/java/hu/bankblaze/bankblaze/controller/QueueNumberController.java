@@ -3,7 +3,6 @@ package hu.bankblaze.bankblaze.controller;
 import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +21,21 @@ public class QueueNumberController {
         return "showNumber";
     }
 
+    @PostMapping("/showNumber")
+    public String generateQueueNumber(@ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
+        queueNumberService.addQueueNumber(newQueueNumber);
+        return "redirect:/home";
+    }
+
+
     @GetMapping("/queueNumber")
-    public String queueQueueNumberPage(Model model) {
-        model.addAttribute("newQueueNumber", new QueueNumber());
+    public String queueQueueNumberPage() {
         return "queueNumber";
     }
 
     @PostMapping("/queueNumber")
-    public String generateQueueNumber(@ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
-        queueNumberService.generateQueueNumber(newQueueNumber);
+    public String generateQueueNumber(@RequestParam String name) {
+        queueNumberService.modifyName(name);
         return "redirect:/queue/showNumber";
     }
 

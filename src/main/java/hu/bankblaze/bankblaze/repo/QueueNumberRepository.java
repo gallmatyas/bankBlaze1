@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> {
 
-    QueueNumber findFirstByOrderByIdAsc();
+    QueueNumber findFirstByOrderByIdDesc();
 }

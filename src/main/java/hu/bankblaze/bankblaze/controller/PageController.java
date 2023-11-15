@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @AllArgsConstructor
 public class PageController {
-
     @GetMapping("/home")
     public String goHome () {
         return "home";

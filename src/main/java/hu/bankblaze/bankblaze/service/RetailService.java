@@ -22,4 +22,18 @@ public class RetailService {
     public Retail getRetailById(Long id) {
         return retailRepository.findById(id).orElse(null);
     }
+
+
+    /*Irni metódust a sorszám generálásra, aminek bemenetként kérünk egy id-t,
+     switch-ben elbírálok és kiadom a sorszámot!*/
+    public int generateQueueNumber(int number) {
+        int queueNumber = 0;
+        switch (number) {
+            case 1 -> queueNumber = 11;
+            case 2 -> queueNumber = 22;
+            case 3 -> queueNumber = 33;
+            case 4 -> queueNumber = 44;
+        }
+        return queueNumber;
+    }
 }

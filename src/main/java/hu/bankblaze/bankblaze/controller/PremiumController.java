@@ -1,6 +1,5 @@
 package hu.bankblaze.bankblaze.controller;
 
-import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Premium;
 import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.PremiumService;
@@ -25,9 +24,10 @@ public class PremiumController {
         return "queueNumber";
     }
     @PostMapping("/processPremium")
-    public String processPremium(@ModelAttribute("Prémium") Premium premium, Model model, @ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
+    public String processPremium(@ModelAttribute("Prémium") Premium premium, Model model,
+                                 @ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
         model.addAttribute("header", "Prémium");
-        queueNumberService.generateQueueNumber(newQueueNumber);
+        queueNumberService.addQueueNumber(newQueueNumber);
         return "redirect:/queue/queueNumber";
     }
 
