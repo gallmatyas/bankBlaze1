@@ -1,9 +1,8 @@
 package hu.bankblaze.bankblaze.controller;
-
-
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.service.AdminService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +15,9 @@ public class AdminController {
 
     private AdminService adminService;
 
+
     private PermissionService permissionService;
 
-
-//    @GetMapping("")
-//        public String getAdmin(){
-//            return "admin";
-//        }
 
     @GetMapping
 
@@ -48,6 +43,12 @@ public class AdminController {
         model.addAttribute("employeeById", adminService.getAllClerks());
         return "admin";
 
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAdmin(){
+        return "admin";
     }
 
 
