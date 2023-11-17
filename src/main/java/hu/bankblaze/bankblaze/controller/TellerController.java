@@ -1,13 +1,11 @@
 package hu.bankblaze.bankblaze.controller;
-import hu.bankblaze.bankblaze.model.Teller;
+
 import hu.bankblaze.bankblaze.service.QueueNumberService;
 import hu.bankblaze.bankblaze.service.TellerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @AllArgsConstructor

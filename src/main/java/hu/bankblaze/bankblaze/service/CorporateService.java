@@ -11,15 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class CorporateService {
     @Autowired
     private QueueNumberRepository queueNumberRepository;
     @Autowired
     private CorporateRepository corporateRepository;
-
-
 
     public List<Corporate> getAllCorporates() {
         return corporateRepository.findAll();

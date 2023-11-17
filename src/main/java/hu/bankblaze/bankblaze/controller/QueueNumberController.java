@@ -1,6 +1,5 @@
 package hu.bankblaze.bankblaze.controller;
 
-import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

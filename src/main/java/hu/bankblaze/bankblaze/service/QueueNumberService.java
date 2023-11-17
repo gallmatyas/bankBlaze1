@@ -16,8 +16,6 @@ public class QueueNumberService {
     @Autowired
     private QueueNumberRepository queueNumberRepository;
 
-
-
     public void deleteQueueNumberById(Long id) {
         queueNumberRepository.deleteById(id);
     }
