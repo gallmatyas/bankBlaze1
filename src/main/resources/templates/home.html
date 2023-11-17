@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Kezdőlap</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-<h1>Üdvözöljük Bankunkban!</h1>
-<h2>Kérjük válasszon szolgáltatást</h2>
-<h3><a th:href="@{/login}">Admin sign in</a></h3>
-<table>
-    <tr>
-        <th>
-            <a th:href="@{/retail}">
-            <p>Lakossági Szolgáltatások</p>
-            </a>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <a th:href="@{/corporate}">
-            <p>Vállalati Szolgáltatások<p/>
-            </a>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <a th:href="@{/tellers}">
-            <p>Pénztár</p>
-            </a>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <a th:href="@{/premium}">
-            <p>Prémium</p>
-        </a>
-        </th>
-    </tr>
-</table>
 
+<body>
+<div class="header">
+    <h1>Üdvözöljük Bankunkban!</h1>
+    <hr>
+    <h2>Kérjük válasszon szolgáltatást:</h2>
+</div>
+
+<h3><a th:href="@{/login}">Bejelentkezés Adminként</a></h3>
+
+<div class="container">
+    <table class="home-table">
+
+        <tr>
+            <td>
+                <a class="home-button" th:href="@{/retail}">Lakossági Szolgáltatások</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a class="home-button" th:href="@{/corporate}">Vállalati Szolgáltatások</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a class="home-button" th:href="@{/tellers}">Pénztár</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <a class="home-button" th:href="@{/premium}">Prémium</a>
+            </td>
+        </tr>
+
+    </table>
+</div>
 
 </body>
+
 </html>
