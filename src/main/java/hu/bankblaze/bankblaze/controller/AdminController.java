@@ -1,6 +1,9 @@
 package hu.bankblaze.bankblaze.controller;
+
 import hu.bankblaze.bankblaze.model.Employee;
+import hu.bankblaze.bankblaze.model.Permission;
 import hu.bankblaze.bankblaze.service.AdminService;
+import hu.bankblaze.bankblaze.service.PermissionService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,24 +23,25 @@ public class AdminController {
 
 
     @GetMapping
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllClerks(Model model) {
         model.addAttribute("employees", adminService.getAllClerks());
         return "admin";
     }
+
     @PostMapping("/update")
-    public String getAllClerks ( @RequestParam("employeeId") Long id,
-                                 @RequestParam("retailCheckbox")Boolean forRetail,
-                                 @RequestParam("corporateCheckbox")Boolean forCorporate,
-                                 @RequestParam("tellerCheckbox")Boolean forTeller,
-                                 @RequestParam("premiumCheckbox")Boolean forPremium)
-    {
-        permissionService.modifyForRetail(id,forRetail);
-        permissionService.modifyForCorporate(id,forCorporate);
-        permissionService.modifyForTellers(id,forTeller);
-        permissionService.modifyForPremium(id,forPremium);
+    public String getAllClerks(@RequestParam("employeeId") Long id,
+                               @RequestParam("retailCheckbox") Boolean forRetail,
+                               @RequestParam("corporateCheckbox") Boolean forCorporate,
+                               @RequestParam("tellerCheckbox") Boolean forTeller,
+                               @RequestParam("premiumCheckbox") Boolean forPremium) {
+        permissionService.modifyForRetail(id, forRetail);
+        permissionService.modifyForCorporate(id, forCorporate);
+        permissionService.modifyForTellers(id, forTeller);
+        permissionService.modifyForPremium(id, forPremium);
         return "redirect:/admin";
     }
+
     @GetMapping("/employee/{id}")
     public String getEmployeeById(Model model, @PathVariable Long id) {
         model.addAttribute("employeeById", adminService.getAllClerks());
@@ -45,12 +49,12 @@ public class AdminController {
 
     }
 
-    @GetMapping
+ /*   @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAdmin(){
+    public String getAdmin() {
         return "admin";
     }
-
+*/
 
     @GetMapping("/{id}")
     public String getAdminById(Model model, @PathVariable Long id) {
@@ -83,8 +87,6 @@ public class AdminController {
         permissionService.savePermisson(update);
         return "redirect:/admin/" + id;
     }
-
-
 
 
 }

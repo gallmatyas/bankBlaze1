@@ -1,4 +1,6 @@
 package hu.bankblaze.bankblaze.config;
+import hu.bankblaze.bankblaze.repo.EmployeeRepository;
+import hu.bankblaze.bankblaze.service.JpaUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +30,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Autowired
     private final JpaUserDetailsService jpaUserDetailsService;
+
+    private EmployeeRepository employeeRepository;
 
     @Bean
 
