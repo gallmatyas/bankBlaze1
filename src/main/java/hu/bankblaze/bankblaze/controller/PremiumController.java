@@ -1,7 +1,5 @@
 package hu.bankblaze.bankblaze.controller;
 
-import hu.bankblaze.bankblaze.model.Premium;
-import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.PremiumService;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
 import lombok.AllArgsConstructor;
@@ -20,16 +18,9 @@ public class PremiumController {
     @GetMapping
     public String getPremium (Model model) {
         model.addAttribute("header", "Prémium");
-        model.addAttribute("newQueueNumber", new QueueNumber());
+        queueNumberService.modifyToPremium(true);
+        queueNumberService.modifyNumber(premiumService.generateQueueNumber());
         return "queueNumber";
     }
-    @PostMapping("/processPremium")
-    public String processPremium(@ModelAttribute("Prémium") Premium premium, Model model,
-                                 @ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
-        model.addAttribute("header", "Prémium");
-        queueNumberService.addQueueNumber(newQueueNumber);
-        return "redirect:/queue/queueNumber";
-    }
-
 
 }

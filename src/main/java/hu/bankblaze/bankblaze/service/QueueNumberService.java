@@ -62,19 +62,19 @@ public class QueueNumberService {
 
     public void modifyToCorporate(Boolean isToCorporate) {
         QueueNumber queueNumber = getQueueNumber();
-        queueNumber.setToRetail(isToCorporate);
+        queueNumber.setToCorporate(isToCorporate);
         queueNumberRepository.save(queueNumber);
     }
 
     public void modifyToTeller(Boolean isToTeller) {
         QueueNumber queueNumber = getQueueNumber();
-        queueNumber.setToRetail(isToTeller);
+        queueNumber.setToTeller(isToTeller);
         queueNumberRepository.save(queueNumber);
     }
 
     public void modifyToPremium(Boolean isToPremium) {
         QueueNumber queueNumber = getQueueNumber();
-        queueNumber.setToRetail(isToPremium);
+        queueNumber.setToPremium(isToPremium);
         queueNumberRepository.save(queueNumber);
     }
 

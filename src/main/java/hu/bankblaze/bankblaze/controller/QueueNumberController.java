@@ -22,8 +22,7 @@ public class QueueNumberController {
     }
 
     @PostMapping("/showNumber")
-    public String generateQueueNumber(@ModelAttribute("newQueueNumber") QueueNumber newQueueNumber) {
-        queueNumberService.addQueueNumber(newQueueNumber);
+    public String generateQueueNumber() {
         return "redirect:/home";
     }
 
