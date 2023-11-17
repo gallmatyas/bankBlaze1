@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +25,14 @@ public class AdminService {
     }
 
 
+    public boolean checkLogin(String userName, String password) {
+        // TODO Auto-generated method stub
+        Optional<Employee> employee = employeeRepository.findByName(userName);
+        if (employee.isPresent() && passwordEncoder.matches(password, employee.get().getPassword())) {
+            return true;
+        }
+        return false;
+    }
 
 }
 
