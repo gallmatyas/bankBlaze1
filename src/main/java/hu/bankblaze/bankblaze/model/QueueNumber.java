@@ -21,5 +21,4 @@ public class QueueNumber {
     private Boolean toTeller = false;
     private Boolean toPremium = false;
     private Boolean active = true;
-
 }
