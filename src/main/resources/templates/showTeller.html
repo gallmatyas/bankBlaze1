@@ -7,24 +7,18 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<table class="main-table">
-    <tr>
-        <td class="bank-name">BankBlaze</td>
-        <td class="teller-title">Pénztár</td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;</td>
-    </tr>
-</table>
+<div class="header">
+    <h1>Pénztár</h1>
+</div>
 <div class="container">
     <table class="menu-table">
         <tr>
-            <td><a class="menu-button" th:href="@{/queue/queueNumber}">Pénztár befizetés</a></td>
-            <td><a class="menu-button" th:href="@{/queue/queueNumber}">Pénztár kifizetés</a></td>
+            <td><a class="menu-button" href="queuenumber.html">Pénztár befizetés</a></td>
+            <td><a class="menu-button" href="queuenumber.html">Pénztár kifizetés</a></td>
         </tr>
 
         <tr>
-            <td colspan="2"><a class="menu-button" th:href="@{/queue/queueNumber}">Valutaváltás</a></td>
+            <td colspan="2"><a class="menu-button" href="queuenumber.html">Valutaváltás</a></td>
         </tr>
     </table>
 </div>

@@ -17,7 +17,6 @@ public class QueueNumberService {
     private QueueNumberRepository queueNumberRepository;
 
 
-
     public void deleteQueueNumberById(Long id) {
         queueNumberRepository.deleteById(id);
     }
