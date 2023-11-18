@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>BankBlaze</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="/retail.css">
 </head>
 <body>
-<div class="header">
-    <h1>Vállalati Szolgáltatások</h1>
-</div>
-<div class="container">
-    <table class="menu-table">
-        <tr>
-            <td>
-                <a class="home-button" th:href="@{/queue/queueNumber}" th:text="${corporates.get(0).name}">Számlaügyintézés</a>
-            </td>
-            <td>
-                <a class="home-button" th:href="@{/queue/queueNumber}" th:text="${corporates.get(1).name}">Hitelek</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a class="home-button" th:href="@{/queue/queueNumber}" th:text="${corporates.get(2).name}">Megtakarítások</a>
-            </td>
-            <td>
-                <a class="home-button" th:href="@{/queue/queueNumber}" th:text="${corporates.get(3).name}">Elektronikus szolgáltatások</a>
-            </td>
-        </tr>
-    </table>
+<h1>Vállalati Szolgáltatások</h1>
+<div>
+    <div>
+        <form method="post" th:action="@{/corporate}">
+            <input type="hidden" th:value="${corporates.get(0).getId()}" name="id">
+            <button class="retail-button" th:text="${corporates.get(0).name}"></button>
+        </form>
+        <form method="post" th:action="@{/corporate}">
+            <input type="hidden" th:value="${corporates.get(1).getId()}" name="id">
+            <button class="retail-button" th:text="${corporates.get(1).name}"></button>
+        </form>
+        <form method="post" th:action="@{/corporate}">
+            <input type="hidden" th:value="${corporates.get(2).getId()}" name="id">
+            <button class="retail-button" th:text="${corporates.get(2).name}"></button>
+        </form>
+        <form method="post" th:action="@{/corporate}">
+            <input type="hidden" th:value="${corporates.get(3).getId()}" name="id">
+            <button class="retail-button" th:text="${corporates.get(3).name}"></button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

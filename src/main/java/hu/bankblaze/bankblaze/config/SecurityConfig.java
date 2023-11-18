@@ -1,4 +1,6 @@
 package hu.bankblaze.bankblaze.config;
+import hu.bankblaze.bankblaze.repo.EmployeeRepository;
+import hu.bankblaze.bankblaze.service.JpaUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +31,8 @@ public class SecurityConfig {
     @Autowired
     private final JpaUserDetailsService jpaUserDetailsService;
 
+    private EmployeeRepository employeeRepository;
+
     @Bean
 
     public UserDetailsService userDetailsService(PasswordEncoder encoder, EmployeeRepository employeeRepository){
@@ -39,7 +43,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/queue/**","/corporate/**","/retail/**","/tellers/**", "/premium").permitAll()
+                        .requestMatchers("/", "/home", "/queue/**",
+                                "/corporate/**",
+                                "/retail/**",
+                                "/teller/**",
+                                "/premium/**").permitAll()
                         .anyRequest().authenticated()
 
                 )

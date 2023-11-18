@@ -1,10 +1,14 @@
 package hu.bankblaze.bankblaze.service;
 
+import hu.bankblaze.bankblaze.model.Employee;
+import hu.bankblaze.bankblaze.model.SecurityUser;
+import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 

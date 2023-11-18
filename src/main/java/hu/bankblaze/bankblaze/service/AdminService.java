@@ -3,6 +3,8 @@ package hu.bankblaze.bankblaze.service;
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,13 @@ import java.util.Optional;
 public class AdminService {
 
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public List<Employee>getAllClerks(){
+        return employeeRepository.getAllClerks();
+    }
 
     public Employee getAdminById (Long id){
         return employeeRepository.findById(id).orElse(null);
