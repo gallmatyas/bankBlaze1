@@ -26,6 +26,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllClerks(Model model) {
         model.addAttribute("employees", adminService.getAllClerks());
+        model.addAttribute("admins", adminService.getAllAdmins());
         return "admin";
     }
 
@@ -42,36 +43,32 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/employee/{id}")
-    public String getEmployeeById(Model model, @PathVariable Long id) {
-        model.addAttribute("employeeById", adminService.getAllClerks());
-        return "admin";
-
+    @GetMapping("/statistics")
+    public String getStatistics(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        return "statistics";
     }
 
- /*   @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String getAdmin() {
-        return "admin";
-    }
-*/
-
-    @GetMapping("/{id}")
-    public String getAdminById(Model model, @PathVariable Long id) {
-        Employee employee = adminService.getAdminById(id);
-        model.addAttribute("admin", employee);
-        return "admin";
-
+    @GetMapping("/desk")
+    public String setDesks(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        return "desk";
     }
 
-    @GetMapping("/new")
+    @PostMapping("/desk")
+    public String setDesks(@RequestParam("employeeId") Long id) {
+        return "redirect:/admin/desk";
+    }
+
+    @GetMapping("/registration")
     public String createEmployee(Model model) {
-        model.addAttribute("admin", new Employee());
-        return "newEmployee";
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("newEmployee", new Employee());
+        return "registration";
     }
 
-    @PostMapping("/add")
-    public String createEmployee(@ModelAttribute("admin") Employee employee) {
+    @PostMapping("/registration")
+    public String createEmployee(@ModelAttribute("newEmployee") Employee employee) {
         adminService.saveAdmin(employee);
         return "redirect:/admin";
     }
@@ -81,12 +78,4 @@ public class AdminController {
         adminService.deleteAdminById(id);
         return "redirect:/admin";
     }
-
-    @PostMapping("update/{id}")
-    public String updatePermission(@PathVariable("id") Integer id, @ModelAttribute("permission") Permission update) {
-        permissionService.savePermisson(update);
-        return "redirect:/admin/" + id;
-    }
-
-
 }
