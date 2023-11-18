@@ -1,7 +1,11 @@
 package hu.bankblaze.bankblaze.controller;
 
+
+import hu.bankblaze.bankblaze.model.QueueNumber;
+import hu.bankblaze.bankblaze.service.QueueNumberService;
 import hu.bankblaze.bankblaze.service.AdminService;
 import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -9,6 +13,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +26,40 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 
+
 @Controller
 @AllArgsConstructor
+@RequestMapping("/home")
 public class PageController {
+
+
+    private QueueNumberService queueNumberService;
+
+    @GetMapping
+    public String goHome (Model model) {
+        model.addAttribute("newQueueNumber", new QueueNumber());
+        return "home";
+    }
+
+    @PostMapping
+    public String goHome(@ModelAttribute("newQueueNumber") QueueNumber queueNumber,
+                         @RequestParam("whereTo") int id) {
+        queueNumberService.addQueueNumber(queueNumber);
+        switch (id) {
+            case 1 -> {
+                return "redirect:/retail";
+            }
+            case 2 -> {
+                return "redirect:/corporate";
+            }
+            case 3 -> {
+                return "redirect:/teller";
+            }
+            case 4 -> {
+                queueNumberService.addQueueNumber(queueNumber);
+                return "redirect:/premium";
+            }
+        }
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -30,6 +69,7 @@ public class PageController {
 
     @GetMapping("/home")
     public String goHome() {
+
         return "home";
     }
 

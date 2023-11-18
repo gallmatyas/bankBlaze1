@@ -1,33 +1,31 @@
 package hu.bankblaze.bankblaze.controller;
-import hu.bankblaze.bankblaze.model.Teller;
+
+import hu.bankblaze.bankblaze.service.QueueNumberService;
 import hu.bankblaze.bankblaze.service.TellerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/tellers")
+@AllArgsConstructor
+@RequestMapping("/teller")
 public class TellerController {
 
-    private final TellerService tellerService;
-
-    @Autowired
-    public TellerController(TellerService tellerService) {
-        this.tellerService = tellerService;
-    }
+    private TellerService tellerService;
+    private QueueNumberService queueNumberService;
 
     @GetMapping
-    public String showTellers(Model model) {
-        List<Teller> tellers = tellerService.getAllTellers();
-        model.addAttribute("tellers", tellers);
+    public String getTeller(Model model) {
+        model.addAttribute("tellers", tellerService.getAllTellers());
         return "showTeller";
     }
 
-    @GetMapping("/queueNumber")
-    public String queueNumberPage() {
+    @PostMapping
+    public String getTeller(Model model, @RequestParam("id") int number) {
+        model.addAttribute("header", "Pénztár");
+        queueNumberService.modifyNumber(tellerService.generateQueueNumber(number));
+        queueNumberService.modifyToTeller(true);
         return "queueNumber";
     }
 }
