@@ -7,20 +7,30 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<div class="header">
-    <h1>Pénztár</h1>
-</div>
-<div class="container">
-    <table class="menu-table">
-        <tr>
-            <td><a class="menu-button" href="queuenumber.html">Pénztár befizetés</a></td>
-            <td><a class="menu-button" href="queuenumber.html">Pénztár kifizetés</a></td>
-        </tr>
-
-        <tr>
-            <td colspan="2"><a class="menu-button" href="queuenumber.html">Valutaváltás</a></td>
-        </tr>
-    </table>
+<table class="main-table">
+    <tr>
+        <td class="bank-name">BankBlaze</td>
+        <td class="teller-title">Pénztár</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;</td>
+    </tr>
+</table>
+<div>
+    <div>
+        <form method="post" th:action="@{/teller}">
+            <input type="hidden" th:value="${tellers.get(0).getId()}" name="id">
+            <button class="retail-button" th:text="${tellers.get(0).name}"></button>
+        </form>
+        <form method="post" th:action="@{/teller}">
+            <input type="hidden" th:value="${tellers.get(1).getId()}" name="id">
+            <button class="retail-button" th:text="${tellers.get(1).name}"></button>
+        </form>
+        <form method="post" th:action="@{/teller}">
+            <input type="hidden" th:value="${tellers.get(2).getId()}" name="id">
+            <button class="retail-button" th:text="${tellers.get(2).name}"></button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
