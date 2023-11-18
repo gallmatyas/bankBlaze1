@@ -16,5 +16,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Query(nativeQuery = true, value="SELECT * FROM employee WHERE role='USER'")
     List<Employee> getAllClerks();
 
+    @Query(nativeQuery = true, value="SELECT * FROM employee WHERE role='ADMIN'")
+    List<Employee> getAllAdmins();
+
     List<Employee> findAllByRole(String admin);
 }
