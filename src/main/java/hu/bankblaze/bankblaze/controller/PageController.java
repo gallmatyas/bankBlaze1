@@ -29,19 +29,21 @@ import java.util.ArrayList;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/home")
 public class PageController {
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
+    private AdminService adminService;
     private QueueNumberService queueNumberService;
 
-    @GetMapping
+    @GetMapping("/home")
     public String goHome (Model model) {
         model.addAttribute("newQueueNumber", new QueueNumber());
         return "home";
     }
 
-    @PostMapping
+    @PostMapping("/home")
     public String goHome(@ModelAttribute("newQueueNumber") QueueNumber queueNumber,
                          @RequestParam("whereTo") int id) {
         queueNumberService.addQueueNumber(queueNumber);
@@ -60,19 +62,8 @@ public class PageController {
                 return "redirect:/premium";
             }
         }
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    private AdminService adminService;
-
-
-    @GetMapping("/home")
-    public String goHome() {
-
         return "home";
     }
-
 
     @GetMapping("/login")
     public String showLogin() {
