@@ -19,17 +19,23 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<Employee>getAllClerks(){
+    public List<Employee> getAllClerks() {
         return employeeRepository.getAllClerks();
     }
 
-    public Employee getAdminById (Long id){
+    public List<Employee> getAllAdmins() {
+        return employeeRepository.getAllAdmins();
+    }
+
+    public Employee getAdminById(Long id) {
         return employeeRepository.findById(id).orElse(null);
     }
-    public void saveAdmin (Employee employee) {
+
+    public void saveAdmin(Employee employee) {
         employeeRepository.save(employee);
     }
-    public void deleteAdminById( Long id) {
+
+    public void deleteAdminById(Long id) {
         employeeRepository.deleteById(id);
     }
 
