@@ -16,4 +16,9 @@ public class QueueNumber {
     private Long id;
     private String name;
     private int number;
+    private Boolean toRetail = false;
+    private Boolean toCorporate = false;
+    private Boolean toTeller = false;
+    private Boolean toPremium = false;
+    private Boolean active = true;
 }
