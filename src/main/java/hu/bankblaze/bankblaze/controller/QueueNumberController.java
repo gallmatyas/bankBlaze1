@@ -21,8 +21,10 @@ public class QueueNumberController {
     }
 
     @PostMapping("/showNumber")
-    public String generateQueueNumber() {
-
+    public String confirmQueueNumber(@RequestParam("action") String action) {
+        if (action.equals("delete")) {
+            queueNumberService.deleteQueueNumber();
+        }
         return "redirect:/home";
     }
 
