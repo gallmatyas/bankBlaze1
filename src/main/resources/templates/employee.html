@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee</title>
+</head>
+<body>
+<header>
+  <h2>  <span th:text="${loggedInUsername}"></span></h2>
+  <form action="/employee" method="post">
+    <label for="deskSelection">Válassz egy pultot:</label>
+    <select id="deskSelection" name="selectedDesk">
+      <option value="1">Pult 1</option>
+      <option value="2">Pult 2</option>
+      <option value="3">Pult 3</option>
+    </select>
+    <br>
+    <input type="submit" value="Kiválasztás">
+  </form>
+</header>
+<h2>Várakozó ügyfelek</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Lakosság</th>
+    <th>Vállalat</th>
+    <th>Pénztár</th>
+    <th>Premium</th>
+  </tr>
+  </thead>
+  <tr>
+    <td th:text="${lakossagCount}"></td>
+    <td th:text="${vallalatCount}"></td>
+    <td th:text="${penztarCount}"></td>
+    <td th:text="${premiumCount}"></td>
+  </tr>
+
+</table>
+
+<h2>Vállalat</h2>
+
+</body>
+</html>

@@ -50,6 +50,22 @@ public class AdminService {
         }
         return false;
     }
+    public boolean isAdmin(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("ADMIN")) {
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isUser(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("USER")) {
+            return true;
+        }
+
+        return false;
+    }
 
 }
 
