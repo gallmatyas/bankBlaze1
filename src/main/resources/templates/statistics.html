@@ -24,5 +24,37 @@
 </form>
 
 <h3>Fiók áttekintő</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Szolgáltatás</th>
+        <th>Várakozók</th>
+        <th>Várakozási idő</th>
+        <th>Kiszolgálás alatt</th>
+        <th>Összesen</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    <tr>
+        <td>Lakosság</td>
+        <td th:text="${lakossagCount}"></td>
+    </tr>
+    <tr>
+        <td>Vállalat</td>
+        <td th:text="${vallalatCount}"></td>
+    </tr>
+    <tr>
+        <td>Pénztár</td>
+        <td th:text="${penztarCount}"></td>
+    </tr>
+    <tr>
+        <td>Premium</td>
+        <td th:text="${premiumCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

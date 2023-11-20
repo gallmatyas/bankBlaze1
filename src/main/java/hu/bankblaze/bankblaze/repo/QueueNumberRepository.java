@@ -17,4 +17,6 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
 
     @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM queue_number")
     Integer countQueueNumberRows();
+
+    int countByNumberBetween(int i, int i1);
 }
