@@ -32,6 +32,8 @@ public class AdminService {
     }
 
     public void saveAdmin(Employee employee) {
+        String encodedPassword = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(encodedPassword);
         employeeRepository.save(employee);
     }
 

@@ -68,7 +68,9 @@ public class AdminController {
     }
 
     @PostMapping("/registration")
-    public String createEmployee(@ModelAttribute("newEmployee") Employee employee) {
+    public String createEmployee(@ModelAttribute("newEmployee") Employee employee,
+                                 @RequestParam("defaultRole") String defaultRole) {
+        employee.setRole(String.valueOf(defaultRole));
         adminService.saveAdmin(employee);
         return "redirect:/admin";
     }
@@ -78,4 +80,12 @@ public class AdminController {
         adminService.deleteAdminById(id);
         return "redirect:/admin";
     }
+
+    @PostMapping("update/{id}")
+    public String updatePermission(@PathVariable("id") Integer id, @ModelAttribute("permission") Permission update) {
+        permissionService.savePermisson(update);
+        return "redirect:/admin/" + id;
+    }
+
+
 }
