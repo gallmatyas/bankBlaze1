@@ -32,6 +32,8 @@ public class AdminService {
     }
 
     public void saveAdmin(Employee employee) {
+        String encodedPassword = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(encodedPassword);
         employeeRepository.save(employee);
     }
 
@@ -46,6 +48,22 @@ public class AdminService {
         if (employee.isPresent() && passwordEncoder.matches(password, employee.get().getPassword())) {
             return true;
         }
+        return false;
+    }
+    public boolean isAdmin(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("ADMIN")) {
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isUser(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("USER")) {
+            return true;
+        }
+
         return false;
     }
 
