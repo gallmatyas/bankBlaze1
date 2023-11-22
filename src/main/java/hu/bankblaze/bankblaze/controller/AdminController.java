@@ -2,6 +2,7 @@ package hu.bankblaze.bankblaze.controller;
 
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
+import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
 import hu.bankblaze.bankblaze.service.PermissionService;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class AdminController {
 
     private AdminService adminService;
 
-
+    private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
 
 
@@ -46,6 +47,11 @@ public class AdminController {
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("lakossagCount", queueNumberRepository.countByNumberBetween(1000, 1999));
+        model.addAttribute("vallalatCount", queueNumberRepository.countByNumberBetween(2000, 2999));
+        model.addAttribute("penztarCount", queueNumberRepository.countByNumberBetween(3000, 3999));
+        model.addAttribute("premiumCount", queueNumberRepository.countByNumberBetween(9000, 9999));
         return "statistics";
     }
 
@@ -68,7 +74,9 @@ public class AdminController {
     }
 
     @PostMapping("/registration")
-    public String createEmployee(@ModelAttribute("newEmployee") Employee employee) {
+    public String createEmployee(@ModelAttribute("newEmployee") Employee employee,
+                                 @RequestParam("defaultRole") String defaultRole) {
+        employee.setRole(String.valueOf(defaultRole));
         adminService.saveAdmin(employee);
         return "redirect:/admin";
     }
@@ -78,4 +86,12 @@ public class AdminController {
         adminService.deleteAdminById(id);
         return "redirect:/admin";
     }
+
+    @PostMapping("update/{id}")
+    public String updatePermission(@PathVariable("id") Integer id, @ModelAttribute("permission") Permission update) {
+        permissionService.savePermisson(update);
+        return "redirect:/admin/" + id;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package hu.bankblaze.bankblaze.controller;
 
+import hu.bankblaze.bankblaze.service.AdminService;
 
 import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
@@ -25,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -65,6 +68,7 @@ public class PageController {
         return "home";
     }
 
+
     @GetMapping("/login")
     public String showLogin() {
         return "login";
@@ -74,19 +78,33 @@ public class PageController {
     @ResponseBody
     public RedirectView checkLogin(HttpServletRequest request, @RequestParam("username") String userName,
                                    @RequestParam String password, RedirectAttributes redirectAttributes) {
-        if (adminService.checkLogin(userName, password)) {
+        if (adminService.isAdmin(userName, password)) {
+            List<GrantedAuthority> adminAuthorities = AuthorityUtils.createAuthorityList("ADMIN");
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password, adminAuthorities);
+
             if (SecurityContextHolder.getContext().getAuthentication() == null ||
-                    SecurityContextHolder.getContext()
-                            .getAuthentication().getClass().equals(AnonymousAuthenticationToken.class)) {
-                UsernamePasswordAuthenticationToken token =
-                        new UsernamePasswordAuthenticationToken(userName, password,new ArrayList<>());
+                    SecurityContextHolder.getContext().getAuthentication().getClass().equals(AnonymousAuthenticationToken.class)) {
                 SecurityContextHolder.getContext().setAuthentication(token);
             }
-            redirectAttributes.addFlashAttribute("message", "Login Successful");
-            return new RedirectView("admin");
+            redirectAttributes.addFlashAttribute("message", "Admin Login Successful");
+            return new RedirectView("redirect:/admin");
 
+        } else if (adminService.isUser(userName, password)) {
+            // Ügyintéző jogosultság hozzáadása
+            List<GrantedAuthority> clerkAuthorities = AuthorityUtils.createAuthorityList("USER");
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password, clerkAuthorities);
+
+            if (SecurityContextHolder.getContext().getAuthentication() == null ||
+                    SecurityContextHolder.getContext().getAuthentication().getClass().equals(AnonymousAuthenticationToken.class)) {
+                SecurityContextHolder.getContext().setAuthentication(token);
+            }
+
+            redirectAttributes.addFlashAttribute("message", "Employee Login Successful");
+            return new RedirectView("redirect:/employee");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Invalid Username or Password");
+            return new RedirectView("login");
         }
-        redirectAttributes.addFlashAttribute("message", "Invalid Username or Password");
-        return new RedirectView("login");
     }
+
 }
