@@ -11,10 +11,14 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    Optional<Employee> findByName(String name);
-
     @Query(nativeQuery = true, value="SELECT * FROM employee WHERE role='USER'")
     List<Employee> getAllClerks();
 
+    @Query(nativeQuery = true, value="SELECT * FROM employee WHERE role='ADMIN'")
+    List<Employee> getAllAdmins();
+
     List<Employee> findAllByRole(String admin);
+    Optional<Employee> findByName(String name);
+    Employee getAdminByName(String userName);
+
 }

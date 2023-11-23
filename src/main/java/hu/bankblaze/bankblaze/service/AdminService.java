@@ -19,17 +19,25 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<Employee>getAllClerks(){
+    public List<Employee> getAllClerks() {
         return employeeRepository.getAllClerks();
     }
 
-    public Employee getAdminById (Long id){
+    public List<Employee> getAllAdmins() {
+        return employeeRepository.getAllAdmins();
+    }
+
+    public Employee getAdminById(Long id) {
         return employeeRepository.findById(id).orElse(null);
     }
-    public void saveAdmin (Employee employee) {
+
+    public void saveAdmin(Employee employee) {
+        String encodedPassword = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(encodedPassword);
         employeeRepository.save(employee);
     }
-    public void deleteAdminById( Long id) {
+
+    public void deleteAdminById(Long id) {
         employeeRepository.deleteById(id);
     }
 
@@ -40,6 +48,22 @@ public class AdminService {
         if (employee.isPresent() && passwordEncoder.matches(password, employee.get().getPassword())) {
             return true;
         }
+        return false;
+    }
+    public boolean isAdmin(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("ADMIN")) {
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isUser(String userName, String password) {
+        Employee foundEmployee = employeeRepository.getAdminByName(userName);
+        if (foundEmployee != null && foundEmployee.getRole().equals("USER")) {
+            return true;
+        }
+
         return false;
     }
 

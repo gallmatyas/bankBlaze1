@@ -43,18 +43,24 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/queue/**",
-                                "/corporate/**",
-                                "/retail/**",
-                                "/teller/**",
-                                "/premium/**").permitAll()
+                        .requestMatchers("/", "/home", "/queue/**","/corporate/**","/retail/**","/teller/**", "/premium").permitAll()
+
                         .anyRequest().authenticated()
 
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/admin")
                         .permitAll()
+                        .successHandler((request, response, authentication) -> {
+
+                            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                                response.sendRedirect("/admin");
+                            } else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
+                                response.sendRedirect("/employee");
+                            } else {
+                                response.sendRedirect("/");
+                            }
+                        })
                 )
 
                 .build();
