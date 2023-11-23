@@ -1,98 +1,91 @@
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: white;
-  margin: 0;
+* {
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Franklin Gothic Medium', serif;
+}
+
+body{
+  background: #dbd9d9;
 }
 
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+h1 {
+  padding-top: 3%;
+  color: black;
+  text-align: center;
+  font-size: 50px;
+}
+
+
+#buttons {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  gap: 40px;
+  padding-top: 3%;
 }
 
-
-.menu-table {
-  width: 60%;
-  background-color: white;
-  margin-top: 30px;
-  border-collapse: collapse;
-  text-align: center; 
-}
-
-.menu-table td {
-  padding: 10px;
-}
-
-.menu-button {
-  display: inline-block;
-  padding: 15px 10px;
-  background-color: rgb(188, 224, 238);
+.btn {
+  position: relative;
+  background: #fff;
   color: black;
-  border: 1px solid #4e4d4d;
-  cursor: pointer;
-  font-size: 40px;
   text-decoration: none;
-  border-radius: 10px;
-  margin: 25px; 
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  padding: 10px 30px;
+  transition: 0.5s;
+  width: 550px;
+  height: 70px;
 }
 
-.menu-button:hover {
-  background-color: #8abaf1;
+.btn:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+
 }
 
-.home-button {
-  display: block;
-  padding: 15px 10px;
-  background-color: rgb(188, 224, 238);
-  color: black;
-  border: 1px solid #4e4d4d;
-  cursor: pointer;
-  font-size: 40px;
-  text-decoration: none;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-h3 {
-  font-size: 18px;
+.btn:before{
   position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.btn span{
+  position: relative;
+  z-index: 1;
+}
+
+h3{
+  font-size: 18px;
+  position: fixed;
   bottom: 0;
   left: 0;
+  margin: 10px;
+}
+
+h3 a{
   color: black;
+  text-decoration: none;
 }
 
-.home-button:hover {
-  background-color: #8abaf1;
+h3 a:hover{
+  color: rgb(22, 131, 233);
+  text-shadow: 0 0 35px rgb(22, 131, 233);
 }
 
-.header {
-  text-align: center;
-}
-
-h1{
+#buttons h2{
   color: black;
-  font-size: 43px;
-}
-
-h2{
-  color: #2684f0;
-  font-size: 37px;
-}
-
-.home-table {
-  width: 50%;
-  background-color: white;
-  margin-top: 50px;
-  border-collapse: collapse;
-  text-align: center;
-  table-layout: fixed; 
-}
-
-.home-table td {
-  padding: 10px;
-  width: 25%; 
-  box-sizing: border-box;
+  font-size: 25px;
 }
