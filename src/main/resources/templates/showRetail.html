@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BankBlaze</title>
-    <link rel="stylesheet" type="text/css" href="/retail.css">
+    <title>Lakossági Szolgáltatások - BankBlaze</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<h1 class="centered-heading">Lakossági Szolgáltatások</h1>
-<div class="centered-content">
-    <div class="button-container">
+<h1>Lakossági Szolgáltatások</h1>
+<div class="container">
+    <div id="buttons" style="padding-top:5%;">
         <form method="post" th:action="@{/retail}">
             <input type="hidden" th:value="${retails.get(0).getId()}" name="id">
-            <button class="retail-button" th:text="${retails.get(0).name}"></button>
+            <button class="btn" style="--clr:rgb(7, 197, 245);" th:text="${retails.get(0).name}"><span>Számlaügyintézés</span></button>
         </form>
         <form method="post" th:action="@{/retail}">
             <input type="hidden" th:value="${retails.get(1).getId()}" name="id">
-            <button class="retail-button" th:text="${retails.get(1).name}"></button>
+            <button class="btn" style="--clr:rgb(7, 197, 245);" th:text="${retails.get(1).name}"><span>Hitelek</span></button>
         </form>
         <form method="post" th:action="@{/retail}">
             <input type="hidden" th:value="${retails.get(2).getId()}" name="id">
-            <button class="retail-button" th:text="${retails.get(2).name}"></button>
+            <button class="btn" style="--clr:rgb(7, 197, 245);" th:text="${retails.get(2).name}"><span>Megtakarítások</span></button>
         </form>
         <form method="post" th:action="@{/retail}">
             <input type="hidden" th:value="${retails.get(3).getId()}" name="id">
-            <button class="retail-button" th:text="${retails.get(3).name}"></button>
+            <button class="btn" style="--clr:rgb(7, 197, 245);" th:text="${retails.get(3).name}"><span>Elektronikus Szolgáltatások</span></button>
         </form>
     </div>
 </div>
