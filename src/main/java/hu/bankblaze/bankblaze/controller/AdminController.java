@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 
 @Controller
 @AllArgsConstructor
@@ -26,23 +28,19 @@ public class AdminController {
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllClerks(Model model) {
-        model.addAttribute("employees", adminService.getAllClerks());
         model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("clerks", adminService.getAllClerks());
+        model.addAttribute("permissions", permissionService.getAllPermissions());
         return "admin";
     }
 
     @PostMapping("/update")
-    public String getAllClerks(@RequestParam("employeeId") Long id,
-                               @RequestParam("retailCheckbox") Boolean forRetail,
-                               @RequestParam("corporateCheckbox") Boolean forCorporate,
-                               @RequestParam("tellerCheckbox") Boolean forTeller,
-                               @RequestParam("premiumCheckbox") Boolean forPremium) {
-        permissionService.modifyForRetail(id, forRetail);
-        permissionService.modifyForCorporate(id, forCorporate);
-        permissionService.modifyForTellers(id, forTeller);
-        permissionService.modifyForPremium(id, forPremium);
+    public String updatePermissions(@RequestParam Map<String, String> permissions) {
+        permissionService.updatePermissions(permissions);
         return "redirect:/admin";
     }
+
+
 
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
