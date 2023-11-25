@@ -3,44 +3,37 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kezdőlap</title>
+    <title>Kezdőlap - BankBlaze</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-<h1>Üdvözöljük Bankunkban!</h1>
-<h2>Kérjük válasszon szolgáltatást</h2>
-<h3><a th:href="@{/login}">Admin sign in</a></h3>
-<table>
-    <tr>
-        <th>
-            <form th:action="@{/home}" method="post">
-                <button type="submit" name="whereTo" value="1">Lakossági szolgáltatások</button>
-            </form>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <form th:action="@{/home}" method="post">
-                <button type="submit" name="whereTo" value="2">Vállalati szolgáltatások</button>
-            </form>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <form th:action="@{/home}" method="post">
-                <button type="submit" name="whereTo" value="3">Pénztár</button>
-            </form>
-        </th>
-    </tr>
-    <tr>
-        <th>
-            <form th:action="@{/home}" method="post">
-                <button type="submit" name="whereTo" value="4">Prémium</button>
-            </form>
-        </th>
-    </tr>
-</table>
+<div class="container">
+    <h1>Üdvözöljük Bankunkban!</h1>
+    <h3><a th:href="@{/login}">Bejelentkezés Adminként</a></h3>
+    <div id="buttons">
+        <h2>Kérjük, válasszon szolgáltatást:</h2>
+        <form th:action="@{/home}" method="post">
+            <button class="btn" style="--clr:rgb(7, 197, 245);" type="submit" name="whereTo"
+                    value="1"><span>Lakossági szolgáltatások</span></button>
+        </form>
+
+        <form th:action="@{/home}" method="post">
+            <button class="btn" style="--clr:rgb(7, 197, 245);" type="submit" name="whereTo"
+                    value="2"><span>Vállalati szolgáltatások</span></button>
+        </form>
+
+        <form th:action="@{/home}" method="post">
+            <button class="btn" style="--clr:rgb(7, 197, 245); " type="submit" name="whereTo"
+                    value="3"><span>Pénztár</span></button>
+        </form>
+
+        <form th:action="@{/home}" method="post">
+            <button class="btn" style="--clr:rgb(7, 197, 245);" type="submit" name="whereTo"
+                    value="4"><span>Prémium</span></button>
+        </form>
+    </div>
+</div>
 </body>
 
 </html>
