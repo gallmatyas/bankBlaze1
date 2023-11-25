@@ -79,9 +79,16 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteAdmin(@PathVariable Long id) {
-        adminService.deleteAdminById(id);
+    @GetMapping("/delete")
+    public String showDeleteForm(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        return "delete";
+    }
+    @PostMapping("/delete")
+    public String deleteAdmin(@RequestParam("action") String action, String name) {
+        if (action.equals("delete")) {
+            adminService.deleteAdminByName(name);
+        }
         return "redirect:/admin";
     }
 
