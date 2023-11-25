@@ -33,7 +33,6 @@ public class EmployeeController {
         model.addAttribute("vallalatCount", queueNumberRepository.countByNumberBetween(2000, 2999));
         model.addAttribute("penztarCount", queueNumberRepository.countByNumberBetween(3000, 3999));
         model.addAttribute("premiumCount", queueNumberRepository.countByNumberBetween(9000, 9999));
-        // model.addAttribute("descs", descService.getAllDescs());
         return "employee";
     }
     @PostMapping
