@@ -39,9 +39,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk1">
                 <input type="hidden" th:value="${desks.get(0).getId()}" name="desk1Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(0).getId()}"></p>
-                desks.get(0).getEmployee.getId()==current.getId()
             </td>
         </tr>
         <tr>
@@ -49,8 +46,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk2">
                 <input type="hidden" th:value="${desks.get(1).getId()}" name="desk2Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(1).getId()}"></p>
             </td>
         </tr>
         <tr>
@@ -58,8 +53,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk3">
                 <input type="hidden" th:value="${desks.get(2).getId()}" name="desk3Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(2).getId()}"></p>
             </td>
         </tr>
         <tr>
@@ -67,8 +60,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk4">
                 <input type="hidden" th:value="${desks.get(3).getId()}" name="desk4Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(3).getId()}"></p>
             </td>
         </tr>
         <tr>
@@ -76,8 +67,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk5">
                 <input type="hidden" th:value="${desks.get(4).getId()}" name="desk5Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(4).getId()}"></p>
             </td>
         </tr>
         <tr>
@@ -85,8 +74,6 @@
             <td th:each="current : ${employees}">
                 <input type="radio" th:value="${current.getId()}" name="desk6">
                 <input type="hidden" th:value="${desks.get(5).getId()}" name="desk6Id">
-                <p th:text="${current.getId()}"></p>
-                <p th:text="${desks.get(5).getId()}"></p>
             </td>
         </tr>
         </tbody>
