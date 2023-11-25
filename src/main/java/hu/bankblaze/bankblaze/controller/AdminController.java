@@ -6,6 +6,7 @@ import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
 import hu.bankblaze.bankblaze.service.DeskService;
 import hu.bankblaze.bankblaze.service.PermissionService;
+import hu.bankblaze.bankblaze.service.QueueNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class AdminController {
 
     private AdminService adminService;
-
+    private QueueNumberService queueNumberService;
     private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
     private DeskService deskService;
@@ -121,5 +122,10 @@ public class AdminController {
         return "redirect:/admin/" + id;
     }
 
+    @PostMapping("/eod")
+    public String endOfDay() {
+        queueNumberService.deleteAllQueueNumbers();
+        return "redirect:/admin";
+    }
 
 }

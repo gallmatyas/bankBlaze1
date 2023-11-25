@@ -7,7 +7,9 @@
 <body>
 <header>
   <h1 th:text="${admins.get(0).getName()}"></h1>
-
+  <form th:action="@{admin/eod}" method="post">
+    <button type="submit">Napzárás</button>
+  </form>
 </header>
 <h2>Fiókvezető</h2>
 
