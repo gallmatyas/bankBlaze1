@@ -19,4 +19,9 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
     Integer countQueueNumberRows();
 
     int countByNumberBetween(int i, int i1);
+
+    int countByActiveIsTrueAndToRetailIsTrue();
+    int countByActiveIsTrueAndToCorporateIsTrue();
+    int countByActiveIsTrueAndToTellerIsTrue();
+    int countByActiveIsTrueAndToPremiumIsTrue();
 }
