@@ -4,6 +4,7 @@ import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
 import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
+import hu.bankblaze.bankblaze.service.DeskService;
 import hu.bankblaze.bankblaze.service.PermissionService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +24,7 @@ public class AdminController {
 
     private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
+    private DeskService deskService;
 
 
     @GetMapping
@@ -56,11 +58,30 @@ public class AdminController {
     @GetMapping("/desk")
     public String setDesks(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("employees", adminService.getAllClerks());
+        model.addAttribute("desks", deskService.getAllDesks());
         return "desk";
     }
 
     @PostMapping("/desk")
-    public String setDesks(@RequestParam("employeeId") Long id) {
+    public String setDesks(@RequestParam("desk1Id") Long id1,
+                           @RequestParam("desk1") Long desk1,
+                           @RequestParam("desk2Id") Long id2,
+                           @RequestParam("desk2") Long desk2,
+                           @RequestParam("desk3Id") Long id3,
+                           @RequestParam("desk3") Long desk3,
+                           @RequestParam("desk4Id") Long id4,
+                           @RequestParam("desk4") Long desk4,
+                           @RequestParam("desk5Id") Long id5,
+                           @RequestParam("desk5") Long desk5,
+                           @RequestParam("desk6Id") Long id6,
+                           @RequestParam("desk6") Long desk6) {
+        deskService.modifyEmployee(id1, desk1);
+        deskService.modifyEmployee(id2, desk2);
+        deskService.modifyEmployee(id3, desk3);
+        deskService.modifyEmployee(id4, desk4);
+        deskService.modifyEmployee(id5, desk5);
+        deskService.modifyEmployee(id6, desk6);
         return "redirect:/admin/desk";
     }
 
@@ -79,9 +100,16 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteAdmin(@PathVariable Long id) {
-        adminService.deleteAdminById(id);
+    @GetMapping("/delete")
+    public String showDeleteForm(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        return "delete";
+    }
+    @PostMapping("/delete")
+    public String deleteAdmin(@RequestParam("action") String action, String name) {
+        if (action.equals("delete")) {
+            adminService.deleteAdminByName(name);
+        }
         return "redirect:/admin";
     }
 
