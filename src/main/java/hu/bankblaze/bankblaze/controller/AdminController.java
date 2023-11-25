@@ -127,5 +127,4 @@ public class AdminController {
         queueNumberService.deleteAllQueueNumbers();
         return "redirect:/admin";
     }
-
 }
