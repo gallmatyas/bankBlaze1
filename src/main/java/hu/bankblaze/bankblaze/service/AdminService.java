@@ -37,10 +37,12 @@ public class AdminService {
         employeeRepository.save(employee);
     }
 
-    public void deleteAdminById(Long id) {
-        employeeRepository.deleteById(id);
+    public void deleteAdminByName(String name) {
+        Employee employee = employeeRepository.findByName(name).orElse(null);
+        if (employee != null) {
+            employeeRepository.delete(employee);
+        }
     }
-
 
     public boolean checkLogin(String userName, String password) {
         // TODO Auto-generated method stub
@@ -66,6 +68,7 @@ public class AdminService {
 
         return false;
     }
+
 
 }
 
