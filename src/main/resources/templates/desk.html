@@ -7,6 +7,7 @@
 <body>
 <header>
     <h1 th:text="${admins.get(0).getName()}"></h1>
+    <a th:href="@{/logout}">Logout</a>
     <form th:action="@{admin/eod}" method="post">
         <button type="submit">Napzárás</button>
     </form>
