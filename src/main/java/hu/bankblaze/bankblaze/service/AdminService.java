@@ -19,6 +19,10 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public List<Employee> getAllActiveClerks() {
+        return employeeRepository.getAllActiveClerks();
+    }
+
     public List<Employee> getAllClerks() {
         return employeeRepository.getAllClerks();
     }
@@ -42,6 +46,12 @@ public class AdminService {
         if (employee != null) {
             employeeRepository.delete(employee);
         }
+    }
+
+    public void modifyEmployeeByName(String name, String newRole) {
+        Employee employee = employeeRepository.getAdminByName(name);
+        employee.setRole(newRole);
+        employeeRepository.save(employee);
     }
 
     public boolean checkLogin(String userName, String password) {
