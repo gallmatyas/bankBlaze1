@@ -31,7 +31,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String getAllClerks(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("clerks", adminService.getAllClerks());
+        model.addAttribute("clerks", adminService.getAllActiveClerks());
         model.addAttribute("permissions", permissionService.getAllPermissions());
         return "admin";
     }
@@ -43,10 +43,8 @@ public class AdminController {
     }
 
 
-
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
-        model.addAttribute("admins", adminService.getAllAdmins());
         model.addAttribute("admins", adminService.getAllAdmins());
         model.addAttribute("lakossagCount", queueNumberRepository.countByNumberBetween(1000, 1999));
         model.addAttribute("vallalatCount", queueNumberRepository.countByNumberBetween(2000, 2999));
@@ -58,7 +56,7 @@ public class AdminController {
     @GetMapping("/desk")
     public String setDesks(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("employees", adminService.getAllClerks());
+        model.addAttribute("employees", adminService.getAllActiveClerks());
         model.addAttribute("desks", deskService.getAllDesks());
         return "desk";
     }
@@ -100,16 +98,20 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/delete")
-    public String showDeleteForm(Model model) {
+    @GetMapping("/management")
+    public String getManagement(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        return "delete";
+        model.addAttribute("employees", adminService.getAllClerks());
+        return "management";
     }
-    @PostMapping("/delete")
-    public String deleteAdmin(@RequestParam("action") String action, String name) {
-        if (action.equals("delete")) {
-            adminService.deleteAdminByName(name);
+
+    @PostMapping("/management")
+    public String setManagement(@RequestParam("action") String action, String name) {
+        switch (action) {
+            case "USER", "inactive" -> adminService.modifyEmployeeByName(name, action);
+            case "delete" -> adminService.deleteAdminByName(name);
         }
+
         return "redirect:/admin";
     }
 

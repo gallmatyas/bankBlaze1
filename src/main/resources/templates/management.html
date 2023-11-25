@@ -22,16 +22,23 @@
 <form th:action="@{/admin/registration}" method="get">
     <button type="submit">Új ügyintéző felvétele</button>
 </form>
-<form th:action="@{/admin/delete}" method="get">
-    <button type="submit">Ügyintéző törlése</button>
+<form th:action="@{/admin/management}" method="get">
+    <button type="submit">Ügyintéző kezelés</button>
 </form>
 
-<h3>Ügyintéző törlése</h3>
+<h3>Ügyintéző kezelés</h3>
 
-<form th:action="@{/admin/delete}" method="post">
-    <label for="adminName">Ügyintéző neve:</label>
-    <input type="text" id="adminName" name="name" />
+<form th:action="@{/admin/management}" method="post">
+    <label for="employeeName">Ügyintéző neve:</label>
+    <select id="employeeName" name="name">
+        <option value="">--Kérem válassza ki az ügyintézőt--</option>
+        <option th:each="employee : ${employees}" th:value="${employee.getName()}"
+                th:text="${employee.getName()}"></option>
+    </select>
+    <!--input type="text" id="employeeName" name="name" /-->
 
+    <button type="submit" name="action" value="USER">Aktiválás</button>
+    <button type="submit" name="action" value="inactive">Deaktiválás</button>
     <button type="submit" name="action" value="delete">Törlés</button>
 </form>
 </body>
