@@ -15,8 +15,9 @@ public class QueueNumberController {
 
 
     @GetMapping("/showNumber")
-    public String showQueueNumberPage(Model model) {
+    public String showQueueNumberPage(Model model) throws Exception{
         model.addAttribute("queueNumber", queueNumberService.getQueueNumber());
+        model.addAttribute("count", queueNumberService.getCount());
         return "showNumber";
     }
 
@@ -30,7 +31,8 @@ public class QueueNumberController {
 
 
     @GetMapping("/queueNumber")
-    public String queueQueueNumberPage() {
+    public String queueQueueNumberPage(Model model) {
+        model.addAttribute("queueNumber", queueNumberService.getQueueNumber());
         return "queueNumber";
     }
 
