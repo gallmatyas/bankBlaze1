@@ -89,3 +89,48 @@ h3 a:hover{
   color: black;
   font-size: 25px;
 }
+
+.queueCall {
+  table-layout: fixed;
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  vertical-align: center;
+}
+
+.queueCall th {
+  font-size: 200px;
+  border: 10px solid black;
+  border-top: none;
+}
+
+.queueCall th:first-of-type {
+  border-left: none;
+}
+
+.queueCall th:last-of-type {
+  border-right: none;
+}
+
+.queueCall tr {
+  border: none;
+}
+
+.queueCall td {
+  font-size: 115px;
+  text-align: center;
+  padding: 5px;
+  border: 10px solid black;
+  border-bottom: none;
+  border-top: none;
+}
+
+.queueCall td:first-of-type {
+  border-left: none;
+  color: green;
+}
+
+.queueCall td:last-of-type {
+  border-right: none;
+  color: rgb(22, 131, 233);
+}
