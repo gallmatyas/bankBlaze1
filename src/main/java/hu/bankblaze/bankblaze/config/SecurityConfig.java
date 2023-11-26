@@ -12,15 +12,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
@@ -31,10 +26,7 @@ public class SecurityConfig {
     @Autowired
     private final JpaUserDetailsService jpaUserDetailsService;
 
-    private EmployeeRepository employeeRepository;
-
     @Bean
-
     public UserDetailsService userDetailsService(PasswordEncoder encoder, EmployeeRepository employeeRepository){
         return new JpaUserDetailsService(employeeRepository);
     }
@@ -43,10 +35,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/queue/**","/corporate/**","/retail/**","/teller/**", "/premium").permitAll()
-
+                        .requestMatchers("/", "/home",
+                                        "/queue/**",
+                                        "/corporate/**",
+                                        "/retail/**",
+                                        "/teller/**",
+                                        "/premium",
+                                        "/queueCall").permitAll()
                         .anyRequest().authenticated()
-
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
@@ -63,7 +59,6 @@ public class SecurityConfig {
                         })
                 )
                 .logout((logout) -> logout.logoutUrl("/logout"))
-
                 .build();
 
     }
