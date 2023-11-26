@@ -7,6 +7,10 @@
 <body>
 <header>
     <h1 th:text="${admins.get(0).getName()}"></h1>
+    <a th:href="@{/logout}">Logout</a>
+    <form th:action="@{admin/eod}" method="post">
+        <button type="submit">Napzárás</button>
+    </form>
 </header>
 <h2>Fiókvezető</h2>
 
@@ -21,6 +25,9 @@
 </form>
 <form th:action="@{/admin/registration}" method="get">
     <button type="submit">Új ügyintéző felvétele</button>
+</form>
+<form th:action="@{/admin/management}" method="get">
+    <button type="submit">Ügyintéző kezelés</button>
 </form>
 
 <h3>Pult kiosztás</h3>

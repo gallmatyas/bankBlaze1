@@ -81,6 +81,33 @@ public class QueueNumberService {
         QueueNumber queueNumber = getQueueNumber();
         queueNumberRepository.deleteById(queueNumber.getId());
     }
+
+    private int countRetail() {
+        return queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue() - 1;
+    }
+
+    private int countCorporate() {
+        return queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue() - 1;
+    }
+
+    private int countTeller() {
+        return queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue() - 1;
+    }
+
+    private int countPremium() {
+        return queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue() - 1;
+    }
+
+    public int getCount() throws Exception {
+        String number = String.valueOf(getQueueNumber().getNumber());
+        switch (number.substring(0,1)) {
+            case "1" -> {return countRetail();}
+            case "2" -> {return countCorporate();}
+            case "3" -> {return countTeller();}
+            case "9" -> {return countPremium();}
+        }
+        throw new Exception();
+    }
 }
 
 
