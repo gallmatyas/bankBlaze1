@@ -1,4 +1,5 @@
 package hu.bankblaze.bankblaze.config;
+
 import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import hu.bankblaze.bankblaze.service.JpaUserDetailsService;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,8 @@ public class SecurityConfig {
                                         "/retail/**",
                                         "/teller/**",
                                         "/premium",
-                                        "/queueCall").permitAll()
+                                        "/queueCall",
+                                        "/resources/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

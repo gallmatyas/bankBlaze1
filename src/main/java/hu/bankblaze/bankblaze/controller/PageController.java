@@ -4,7 +4,6 @@ import hu.bankblaze.bankblaze.service.AdminService;
 
 import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
-import hu.bankblaze.bankblaze.service.AdminService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
