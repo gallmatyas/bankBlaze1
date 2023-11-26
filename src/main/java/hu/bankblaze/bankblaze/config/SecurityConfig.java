@@ -28,22 +28,22 @@ public class SecurityConfig {
     private final JpaUserDetailsService jpaUserDetailsService;
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder, EmployeeRepository employeeRepository){
+    public UserDetailsService userDetailsService(PasswordEncoder encoder, EmployeeRepository employeeRepository) {
         return new JpaUserDetailsService(employeeRepository);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests((requests) -> requests
+                .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/", "/home",
-                                        "/queue/**",
-                                        "/corporate/**",
-                                        "/retail/**",
-                                        "/teller/**",
-                                        "/premium",
-                                        "/queueCall",
-                                        "/resources/**").permitAll()
+                                "/queue/**",
+                                "/corporate/**",
+                                "/retail/**",
+                                "/teller/**",
+                                "/premium",
+                                "/queueCall",
+                                "/styles.css").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -51,9 +51,11 @@ public class SecurityConfig {
                         .permitAll()
                         .successHandler((request, response, authentication) -> {
 
-                            if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                            if (authentication.getAuthorities().stream()
+                                    .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
                                 response.sendRedirect("/admin");
-                            } else if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))) {
+                            } else if (authentication.getAuthorities().stream()
+                                    .anyMatch(a -> a.getAuthority().equals("USER"))) {
                                 response.sendRedirect("/employee");
                             } else {
                                 response.sendRedirect("/");
@@ -70,8 +72,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider =new DaoAuthenticationProvider();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(jpaUserDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
