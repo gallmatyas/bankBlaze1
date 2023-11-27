@@ -19,6 +19,10 @@ public class AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public List<Employee> getAllActiveClerks() {
+        return employeeRepository.getAllActiveClerks();
+    }
+
     public List<Employee> getAllClerks() {
         return employeeRepository.getAllClerks();
     }
@@ -37,10 +41,18 @@ public class AdminService {
         employeeRepository.save(employee);
     }
 
-    public void deleteAdminById(Long id) {
-        employeeRepository.deleteById(id);
+    public void deleteAdminByName(String name) {
+        Employee employee = employeeRepository.findByName(name).orElse(null);
+        if (employee != null) {
+            employeeRepository.delete(employee);
+        }
     }
 
+    public void modifyEmployeeByName(String name, String newRole) {
+        Employee employee = employeeRepository.getAdminByName(name);
+        employee.setRole(newRole);
+        employeeRepository.save(employee);
+    }
 
     public boolean checkLogin(String userName, String password) {
         // TODO Auto-generated method stub
@@ -50,6 +62,7 @@ public class AdminService {
         }
         return false;
     }
+
     public boolean isAdmin(String userName, String password) {
         Employee foundEmployee = employeeRepository.getAdminByName(userName);
         if (foundEmployee != null && foundEmployee.getRole().equals("ADMIN")) {
@@ -58,6 +71,7 @@ public class AdminService {
 
         return false;
     }
+
     public boolean isUser(String userName, String password) {
         Employee foundEmployee = employeeRepository.getAdminByName(userName);
         if (foundEmployee != null && foundEmployee.getRole().equals("USER")) {
@@ -66,6 +80,7 @@ public class AdminService {
 
         return false;
     }
+
 
 }
 

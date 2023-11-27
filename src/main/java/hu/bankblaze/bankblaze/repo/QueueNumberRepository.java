@@ -15,8 +15,9 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
             "WHERE LEFT(number, 2) = :firstDigits AND active = true), 1)")
     Integer getLastNumber(@Param("firstDigits") int numbers);
 
-    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM queue_number")
-    Integer countQueueNumberRows();
-
     int countByNumberBetween(int i, int i1);
+    int countByActiveIsTrueAndToRetailIsTrue();
+    int countByActiveIsTrueAndToCorporateIsTrue();
+    int countByActiveIsTrueAndToTellerIsTrue();
+    int countByActiveIsTrueAndToPremiumIsTrue();
 }

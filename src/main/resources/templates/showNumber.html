@@ -11,10 +11,13 @@
         , az ön Sorszáma: <span th:text="${queueNumber.number}"></span>
     </h3>
 </div>
+<div >
+    <h3>Ön előtt várakozók száma: <span th:text="${count}"></span></h3>
+</div>
 <div>
     <form th:action="@{/queue/showNumber}" method="post">
         <h1>Rögzíti?</h1>
-        <button type="submit">Igen</button>
+        <button type="submit" name="action" value="confirm">Igen</button>
         <button type="submit" name="action" value="delete">Nem</button>
     </form>
 </div>

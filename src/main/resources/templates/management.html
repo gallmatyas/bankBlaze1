@@ -30,28 +30,20 @@
     <button type="submit">Ügyintéző kezelés</button>
 </form>
 
-<h3>Új ügyintéző felvétele</h3>
+<h3>Ügyintéző kezelés</h3>
 
-<form method="post" th:action="@{/admin/registration}">
+<form th:action="@{/admin/management}" method="post">
+    <label for="employeeName">Ügyintéző neve:</label>
+    <select id="employeeName" name="name">
+        <option value="">--Kérem válassza ki az ügyintézőt--</option>
+        <option th:each="employee : ${employees}" th:value="${employee.getName()}"
+                th:text="${employee.getName()}"></option>
+    </select>
+    <!--input type="text" id="employeeName" name="name" /-->
 
-    <label for="email">Email:</label>
-    <input th:field="*{newEmployee.email}" type="email" id="email" name="email" required>
-    <br>
-
-    <label for="name">Name:</label>
-    <input th:field="*{newEmployee.name}" type="text" id="name" name="name" required>
-    <br>
-
-    <label for="password">Password:</label>
-    <input th:field="*{newEmployee.password}" type="password" id="password" name="password" required>
-    <br>
-
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required>
-    <br>
-    <input type="hidden" id="defaultRole" name="defaultRole" value="USER">
-
-    <input type="submit" value="Register">
+    <button type="submit" name="action" value="USER">Aktiválás</button>
+    <button type="submit" name="action" value="inactive">Deaktiválás</button>
+    <button type="submit" name="action" value="delete">Törlés</button>
 </form>
 </body>
 </html>
