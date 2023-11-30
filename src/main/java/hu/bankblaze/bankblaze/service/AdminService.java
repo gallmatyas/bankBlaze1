@@ -121,23 +121,23 @@ public class AdminService {
     }
 
     public void setQueueCounts(Model model) {
-        model.addAttribute("retailCount", queueNumberRepository.countByActiveTrueAndToRetailTrue());
-        model.addAttribute("corporateCount", queueNumberRepository.countByActiveTrueAndToCorporateTrue());;
-        model.addAttribute("tellerCount", queueNumberRepository.countByActiveTrueAndToTellerTrue());;
-        model.addAttribute("privateCount", queueNumberRepository.countByActiveTrueAndToPremiumTrue());
+        model.addAttribute("retailCount", queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue());
+        model.addAttribute("corporateCount", queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue());;
+        model.addAttribute("tellerCount", queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue());;
+        model.addAttribute("privateCount", queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue());
     }
 
     public void setActualCount(Model model, Employee employee) {
         Permission permission = permissionService.getPermissionByEmployee(employee);
-        Integer actualCount = 0;
+        int actualCount = 0;
         if (permission.getForRetail()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToRetailTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue();
         } else if (permission.getForCorporate()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToCorporateTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue();
         } else if (permission.getForTeller()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToTellerTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue();
         } else if (permission.getForPremium()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToPremiumTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue();
         }
         model.addAttribute("actualCount", actualCount);
     }
@@ -253,13 +253,13 @@ public class AdminService {
         Permission actualPermission = permissionService.getPermissionByEmployee(employee);
         Integer actualCount = 0;
         if (actualPermission.getForRetail()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToRetailTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue();
         } else if (actualPermission.getForCorporate()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToCorporateTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue();
         } else if (actualPermission.getForTeller()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToTellerTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue();
         } else if (actualPermission.getForPremium()) {
-            actualCount = queueNumberRepository.countByActiveTrueAndToPremiumTrue();
+            actualCount = queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue();
         }
         model.addAttribute("actualCount", actualCount);
         Integer employeeCount = 0;

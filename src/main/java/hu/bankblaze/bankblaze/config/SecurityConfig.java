@@ -43,7 +43,8 @@ public class SecurityConfig {
                                 "/teller/**",
                                 "/premium",
                                 "/queueCall",
-                                "/styles.css").permitAll()
+                                "/styles.css",
+                                "/firstPage").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

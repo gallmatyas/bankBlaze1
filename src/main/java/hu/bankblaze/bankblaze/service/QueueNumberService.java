@@ -85,19 +85,19 @@ public class QueueNumberService {
         queueNumberRepository.deleteById(queueNumber.getId());
     }
 
-    private int countRetail() {
+    public int countRetail() {
         return queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue() - 1;
     }
 
-    private int countCorporate() {
+    public int countCorporate() {
         return queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue() - 1;
     }
 
-    private int countTeller() {
+    public int countTeller() {
         return queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue() - 1;
     }
 
-    private int countPremium() {
+    public int countPremium() {
         return queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue() - 1;
     }
 
@@ -115,19 +115,21 @@ public class QueueNumberService {
         queueNumberRepository.deleteByNumber(numberToDelete);
     }
     public QueueNumber getNextRetail() {
-        return queueNumberRepository.getFirstByToRetailIsTrueAndActiveIsTrue();
+        return queueNumberRepository.findFirstByActiveTrueAndToRetailTrue();
     }
 
     public QueueNumber getNextCorporate() {
-        return queueNumberRepository.getFirstByToCorporateIsTrueAndActiveIsTrue();
+        return queueNumberRepository.findFirstByActiveTrueAndToCorporateTrue();
     }
 
     public QueueNumber getNextTeller() {
-        return queueNumberRepository.getFirstByToTellerIsTrueAndActiveIsTrue();
+
+        return queueNumberRepository.findFirstByActiveTrueAndToTellerTrue();
     }
 
     public QueueNumber getNextPremium() {
-        return queueNumberRepository.getFirstByToPremiumIsTrueAndActiveIsTrue();
+
+        return queueNumberRepository.findFirstByActiveTrueAndToPremiumTrue();
     }
     public QueueNumber getSmallestNumber(List<QueueNumber> queueNumberList){
         Long minIndex = queueNumberList.get(0).getId();
@@ -138,15 +140,6 @@ public class QueueNumberService {
         } return getQueueNumberById(minIndex);
     }
 
-
-    public void getStatistics(Model model) {
-        model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("retailCount", queueNumberRepository.countByActiveTrueAndToRetailTrue());
-        model.addAttribute("corporateCount", queueNumberRepository.countByActiveTrueAndToCorporateTrue());
-        model.addAttribute("tellerCount", queueNumberRepository.countByActiveTrueAndToTellerTrue());
-        model.addAttribute("premiumCount", queueNumberRepository.countByActiveTrueAndToPremiumTrue());
-
-    }
 
 }
 

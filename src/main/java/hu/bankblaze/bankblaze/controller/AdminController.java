@@ -46,7 +46,11 @@ public class AdminController {
 
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
-        queueNumberService.getStatistics(model);
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("retailCount", queueNumberService.countRetail());
+        model.addAttribute("corporateCount", queueNumberService.countCorporate());
+        model.addAttribute("tellerCount", queueNumberService.countTeller());
+        model.addAttribute("privateCount", queueNumberService.countPremium());
         return "statistics";
     }
 
