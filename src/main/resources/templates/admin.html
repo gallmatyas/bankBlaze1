@@ -1,36 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
   <meta charset="UTF-8">
   <title>Admin</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
 <header>
-  <h1 th:text="${admins.get(0).getName()}"></h1>
-  <a th:href="@{/logout}">Logout</a>
+  <h1 class="admin-name" th:text="${admins.get(0).getName() + ' - Jogosultságok'}"></h1>
+ <h3 class="logout-btn"><a th:href="@{/logout}">Kijelentkezés</a></h3>
   <form th:action="@{admin/eod}" method="post">
-    <button type="submit">Napzárás</button>
+    <button class="end-btn" type="submit">Napzárás</button>
   </form>
 </header>
-<h2>Fiókvezető</h2>
+
+
+<div id="buttons1">
 
 <form th:action="@{/admin}" method="get">
-  <button type="submit">Jogosultságok</button>
+  <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Jogosultságok</button>
 </form>
 <form th:action="@{/admin/statistics}" method="get">
-  <button type="submit">Fiók áttekintő</button>
+  <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Fiók áttekintő</button>
 </form>
 <form th:action="@{/admin/desk}" method="get">
-  <button type="submit">Pult kiosztás</button>
+  <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Pult kiosztás</button>
 </form>
 <form th:action="@{/admin/registration}" method="get">
-  <button type="submit">Új ügyintéző felvétele</button>
+  <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Új ügyintéző felvétele</button>
 </form>
 <form th:action="@{/admin/management}" method="get">
-  <button type="submit">Ügyintéző kezelése</button>
+  <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Ügyintéző kezelése</button>
 </form>
 
-<h3>Jogosultságok</h3>
+</div>
+
+<div class="table-container">
 <form th:action="@{/admin/update}" method="post">
   <table>
     <thead>
@@ -68,7 +73,9 @@
     </tr>
     </tbody>
   </table>
-  <button type="submit">Mentés</button>
+  <button class="save-btn" type="submit">Mentés</button>
 </form>
+</div>
+
 </body>
 </html>
