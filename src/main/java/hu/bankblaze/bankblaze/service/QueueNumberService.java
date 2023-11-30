@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
 import java.util.List;
 
 @Service
@@ -15,6 +17,7 @@ public class QueueNumberService {
 
     @Autowired
     private QueueNumberRepository queueNumberRepository;
+    private AdminService adminService;
 
 
     public void deleteQueueNumberById(Long id) {
@@ -108,6 +111,43 @@ public class QueueNumberService {
         }
         throw new Exception();
     }
+    public void deleteQueueNumberByNumber(int numberToDelete) {
+        queueNumberRepository.deleteByNumber(numberToDelete);
+    }
+    public QueueNumber getNextRetail() {
+        return queueNumberRepository.getFirstByToRetailIsTrueAndActiveIsTrue();
+    }
+
+    public QueueNumber getNextCorporate() {
+        return queueNumberRepository.getFirstByToCorporateIsTrueAndActiveIsTrue();
+    }
+
+    public QueueNumber getNextTeller() {
+        return queueNumberRepository.getFirstByToTellerIsTrueAndActiveIsTrue();
+    }
+
+    public QueueNumber getNextPremium() {
+        return queueNumberRepository.getFirstByToPremiumIsTrueAndActiveIsTrue();
+    }
+    public QueueNumber getSmallestNumber(List<QueueNumber> queueNumberList){
+        Long minIndex = queueNumberList.get(0).getId();
+        for (int i = 1; i < queueNumberList.size(); i++) {
+            if (minIndex < queueNumberList.get(i).getId()){
+                minIndex = queueNumberList.get(i).getId();
+            }
+        } return getQueueNumberById(minIndex);
+    }
+
+
+    public void getStatistics(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("retailCount", queueNumberRepository.countByActiveTrueAndToRetailTrue());
+        model.addAttribute("corporateCount", queueNumberRepository.countByActiveTrueAndToCorporateTrue());
+        model.addAttribute("tellerCount", queueNumberRepository.countByActiveTrueAndToTellerTrue());
+        model.addAttribute("premiumCount", queueNumberRepository.countByActiveTrueAndToPremiumTrue());
+
+    }
+
 }
 
 

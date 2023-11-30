@@ -22,5 +22,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByName(String name);
     Employee getAdminByName(String userName);
+    void deleteById(Long id);
 
 }
