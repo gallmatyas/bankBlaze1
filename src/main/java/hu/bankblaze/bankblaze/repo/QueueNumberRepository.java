@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> {
 
@@ -15,9 +17,41 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
             "WHERE LEFT(number, 2) = :firstDigits AND active = true), 1)")
     Integer getLastNumber(@Param("firstDigits") int numbers);
 
-    int countByNumberBetween(int i, int i1);
+    QueueNumber findFirstByActiveTrueAndToRetailTrue();
+
+    QueueNumber findFirstByActiveTrueAndToCorporateTrue();
+
+    QueueNumber findFirstByActiveTrueAndToTellerTrue();
+
+    QueueNumber findFirstByActiveTrueAndToPremiumTrue();
+    void deleteByNumber(int number);
+
+
+    List<QueueNumber> findByNumber(int number);
+
+    Integer countByNumberBetweenAndActiveIsTrue(int i, int i1);
+
+    QueueNumber getFirstByToRetailIsTrueAndActiveIsTrue();
+    QueueNumber getFirstByToCorporateIsTrueAndActiveIsTrue();
+    QueueNumber getFirstByToTellerIsTrueAndActiveIsTrue();
+    QueueNumber getFirstByToPremiumIsTrueAndActiveIsTrue();
+
+
+    Integer countByActiveTrueAndToRetailTrue();
+
+    Integer countByActiveTrueAndToCorporateTrue();
+
+    Integer countByActiveTrueAndToTellerTrue();
+
+    Integer countByActiveTrueAndToPremiumTrue();
+
     int countByActiveIsTrueAndToRetailIsTrue();
+
     int countByActiveIsTrueAndToCorporateIsTrue();
+
     int countByActiveIsTrueAndToTellerIsTrue();
+
     int countByActiveIsTrueAndToPremiumIsTrue();
 }
+
+
