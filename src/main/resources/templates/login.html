@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <title>Spring Security Example</title>
+    <link rel="stylesheet" href="/login.css" />
 </head>
+
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<label style="text-align: center;">Kérjük adja meg felhasználónevét és jelszavát!</label>
+<div class="container" style="margin-top: 20px;">
+
+    <form th:action="@{/login}" method="post" style="margin-top: 10px;">
+        <div class="input-group">
+            <label style="text-align: center;"  >Felhasználó:</label>
+            <input type="text" name="username" class="input-field" style="text-align: center;" />
+        </div>
+        <div class="input-group">
+            <label style="text-align: center;">Jelszó:</label>
+            <input type="password" name="password" class="input-field" style="text-align: center;" />
+        </div>
+        <div>
+            <input type="submit" value="Belépés" class="btn" style="width: 220px;" />
+        </div>
+    </form>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
 </body>
+
 </html>
