@@ -46,11 +46,7 @@ public class AdminController {
 
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
-        model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("lakossagCount", queueNumberRepository.countByNumberBetween(1000, 1999));
-        model.addAttribute("vallalatCount", queueNumberRepository.countByNumberBetween(2000, 2999));
-        model.addAttribute("penztarCount", queueNumberRepository.countByNumberBetween(3000, 3999));
-        model.addAttribute("premiumCount", queueNumberRepository.countByNumberBetween(9000, 9999));
+        queueNumberService.getStatistics(model);
         return "statistics";
     }
 
@@ -125,6 +121,19 @@ public class AdminController {
     @PostMapping("/eod")
     public String endOfDay() {
         queueNumberService.deleteAllQueueNumbers();
+        return "redirect:/admin";
+    }
+    @GetMapping("/delete")
+    public String showDeleteForm(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("admins", adminService.getAllClerks());
+        return "delete";
+    }
+    @PostMapping("/delete")
+    public String deleteAdmin(@RequestParam("action") String action, String name) {
+        if (action.equals("delete")) {
+            adminService.deleteAdminByName(name);
+        }
         return "redirect:/admin";
     }
 }

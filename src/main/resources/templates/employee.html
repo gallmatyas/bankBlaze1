@@ -6,18 +6,10 @@
 </head>
 <body>
 <header>
-  <h2>  <span th:text="${loggedInUsername}"></span></h2>
+  <h2>  <span th:text="${desk.getEmployee().getName()}"></span></h2>
+  <h2>  A pult száma: <span th:text="${desk.getId()}"></span></h2>
   <a th:href="@{/logout}">Logout</a>
-  <form action="/employee" method="post">
-    <label for="deskSelection">Válassz egy pultot:</label>
-    <select id="deskSelection" name="selectedDesk">
-      <option value="1">Pult 1</option>
-      <option value="2">Pult 2</option>
-      <option value="3">Pult 3</option>
-    </select>
-    <br>
-    <input type="submit" value="Kiválasztás">
-  </form>
+
 </header>
 <h2>Várakozó ügyfelek</h2>
 <table>
@@ -30,15 +22,31 @@
   </tr>
   </thead>
   <tr>
-    <td th:text="${lakossagCount}"></td>
-    <td th:text="${vallalatCount}"></td>
-    <td th:text="${penztarCount}"></td>
+    <td th:text="${retailCount}"></td>
+    <td th:text="${corporateCount}"></td>
+    <td th:text="${tellerCount}"></td>
     <td th:text="${premiumCount}"></td>
   </tr>
 
 </table>
+<h2>  <span th:text="${actualPermission}"> </span></h2>
+<table>
+  <thead>
+  <tr>
+    <th>Várakozók</th>
+    <th>Csapat létszám</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td th:text="${actualCount}"></td>
+    <td th:text="${employeeCount}"></td>
+  </tbody>
+</table>
+<form th:action="@{/employee}" method="post">
+  <button type="submit"> Következő ügyfél</button>
+</form>
 
-<h2>Vállalat</h2>
 
 </body>
 </html>
