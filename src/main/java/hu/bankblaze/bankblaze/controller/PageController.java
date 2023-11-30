@@ -41,6 +41,11 @@ public class PageController {
     private AdminService adminService;
     private QueueNumberService queueNumberService;
 
+    @GetMapping("/firstPage")
+    public String startPage() {
+        return "firstPage";
+    }
+
     @GetMapping("/home")
     public String goHome (Model model) {
         model.addAttribute("newQueueNumber", new QueueNumber());
