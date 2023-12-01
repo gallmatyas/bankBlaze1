@@ -27,24 +27,6 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
     void deleteByNumber(int number);
 
 
-    List<QueueNumber> findByNumber(int number);
-
-    Integer countByNumberBetweenAndActiveIsTrue(int i, int i1);
-
-    QueueNumber getFirstByToRetailIsTrueAndActiveIsTrue();
-    QueueNumber getFirstByToCorporateIsTrueAndActiveIsTrue();
-    QueueNumber getFirstByToTellerIsTrueAndActiveIsTrue();
-    QueueNumber getFirstByToPremiumIsTrueAndActiveIsTrue();
-
-
-    Integer countByActiveTrueAndToRetailTrue();
-
-    Integer countByActiveTrueAndToCorporateTrue();
-
-    Integer countByActiveTrueAndToTellerTrue();
-
-    Integer countByActiveTrueAndToPremiumTrue();
-
     int countByActiveIsTrueAndToRetailIsTrue();
 
     int countByActiveIsTrueAndToCorporateIsTrue();

@@ -28,5 +28,7 @@ public class Permission {
 
     private Boolean forPremium=false;
 
-
+    public void setForRetail(Boolean forRetail) {
+        this.forRetail = forRetail;
+    }
 }
