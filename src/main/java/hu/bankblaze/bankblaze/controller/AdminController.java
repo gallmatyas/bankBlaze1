@@ -2,7 +2,6 @@ package hu.bankblaze.bankblaze.controller;
 
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
-import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
 import hu.bankblaze.bankblaze.service.DeskService;
 import hu.bankblaze.bankblaze.service.PermissionService;
@@ -23,7 +22,6 @@ public class AdminController {
 
     private AdminService adminService;
     private QueueNumberService queueNumberService;
-    private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
     private DeskService deskService;
 
@@ -46,7 +44,11 @@ public class AdminController {
 
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
-        queueNumberService.getStatistics(model);
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("retailCount", queueNumberService.countRetail());
+        model.addAttribute("corporateCount", queueNumberService.countCorporate());
+        model.addAttribute("tellerCount", queueNumberService.countTeller());
+        model.addAttribute("premiumCount", queueNumberService.countPremium());
         return "statistics";
     }
 
@@ -89,9 +91,17 @@ public class AdminController {
 
     @PostMapping("/registration")
     public String createEmployee(@ModelAttribute("newEmployee") Employee employee,
-                                 @RequestParam("defaultRole") String defaultRole) {
+                                 @RequestParam("defaultRole") String defaultRole,
+                                 @RequestParam("defaultPermissionRetail") String defaultPermissionRetail,
+                                 @RequestParam("defaultPermissionCorporate") String defaultPermissionCorporate,
+                                 @RequestParam("defaultPermissionTeller") String defaultPermissionTeller,
+                                 @RequestParam("defaultPermissionPremium") String defaultPermissionPremium) {
+
         employee.setRole(String.valueOf(defaultRole));
         adminService.saveAdmin(employee);
+
+        permissionService.createPermissionForEmployee(employee, defaultPermissionRetail,
+                defaultPermissionCorporate, defaultPermissionTeller, defaultPermissionPremium);
         return "redirect:/admin";
     }
 

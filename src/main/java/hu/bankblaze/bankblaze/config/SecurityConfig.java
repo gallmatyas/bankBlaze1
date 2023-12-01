@@ -43,7 +43,14 @@ public class SecurityConfig {
                                 "/teller/**",
                                 "/premium",
                                 "/queueCall",
-                                "/styles.css").permitAll()
+                                "/styles.css",
+                                "/firstPage",
+                                "/login.css").permitAll()
+                        .requestMatchers("/webjars/jquery/jquery.min.js",
+                                "/webjars/sockjs-client/sockjs.min.js",
+                                "/webjars/stomp-websocket/stomp.min.js",
+                                "/SocketConfig.js",
+                                "/bankBlaze-websocket/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
