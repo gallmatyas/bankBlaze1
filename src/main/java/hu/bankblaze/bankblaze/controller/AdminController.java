@@ -23,7 +23,6 @@ public class AdminController {
 
     private AdminService adminService;
     private QueueNumberService queueNumberService;
-    private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
     private DeskService deskService;
 
@@ -50,7 +49,7 @@ public class AdminController {
         model.addAttribute("retailCount", queueNumberService.countRetail());
         model.addAttribute("corporateCount", queueNumberService.countCorporate());
         model.addAttribute("tellerCount", queueNumberService.countTeller());
-        model.addAttribute("privateCount", queueNumberService.countPremium());
+        model.addAttribute("premiumCount", queueNumberService.countPremium());
         return "statistics";
     }
 
@@ -93,9 +92,17 @@ public class AdminController {
 
     @PostMapping("/registration")
     public String createEmployee(@ModelAttribute("newEmployee") Employee employee,
-                                 @RequestParam("defaultRole") String defaultRole) {
+                                 @RequestParam("defaultRole") String defaultRole,
+                                 @RequestParam("defaultPermissionRetail") String defaultPermissionRetail,
+                                 @RequestParam("defaultPermissionCorporate") String defaultPermissionCorporate,
+                                 @RequestParam("defaultPermissionTeller") String defaultPermissionTeller,
+                                 @RequestParam("defaultPermissionPremium") String defaultPermissionPremium) {
+
         employee.setRole(String.valueOf(defaultRole));
         adminService.saveAdmin(employee);
+
+        permissionService.createPermissionForEmployee(employee, defaultPermissionRetail,
+                defaultPermissionCorporate, defaultPermissionTeller, defaultPermissionPremium);
         return "redirect:/admin";
     }
 

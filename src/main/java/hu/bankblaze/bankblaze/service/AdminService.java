@@ -106,28 +106,13 @@ public class AdminService {
         return employeeOptional.map(Employee::getId).orElse(null);
     }
 
-    public String getLoggedInClerks() {
-        String loggedInUsername = getLoggedInUsername();
-        Long loggedInUserId = getLoggedInUserIdByUsername(loggedInUsername);
-        Long deskNumber = deskService.getDeskIdByLoggedInUser(loggedInUserId);
-        String permission = permissionService.getPermissionByLoggedInUser(loggedInUserId);
-
-        return "employee";
-    }
 
     public String getLoggedInUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
 
-    public void setQueueCounts(Model model) {
-        model.addAttribute("retailCount", queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue());
-        model.addAttribute("corporateCount", queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue());;
-        model.addAttribute("tellerCount", queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue());;
-        model.addAttribute("privateCount", queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue());
-    }
-
-    public void setActualCount(Model model, Employee employee) {
+    public int setActualCount(Employee employee) {
         Permission permission = permissionService.getPermissionByEmployee(employee);
         int actualCount = 0;
         if (permission.getForRetail()) {
@@ -139,13 +124,13 @@ public class AdminService {
         } else if (permission.getForPremium()) {
             actualCount = queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue();
         }
-        model.addAttribute("actualCount", actualCount);
+        return actualCount;
     }
 
-    public void setEmployeeCount(Model model, Employee employee) {
+    public int setEmployeeCount(Employee employee) {
         Permission permission = permissionService.getPermissionByEmployee(employee);
 
-        Integer employeeCount = 0;
+        int employeeCount = 0;
         if (permission.getForRetail()) {
             employeeCount = permissionRepository.countByForRetailTrue();
         } else if (permission.getForCorporate()) {
@@ -155,22 +140,10 @@ public class AdminService {
         } else if (permission.getForPremium()) {
             employeeCount = permissionRepository.countByForPremiumTrue();
         }
-        model.addAttribute("employeeCount", employeeCount);
+        return employeeCount;
     }
-    public void processClosure(Model model) {
-        String loggedInUsername = getLoggedInUsername();
-        Long loggedInUserId = getLoggedInUserIdByUsername(loggedInUsername);
-        Long deskNumber = deskService.getDeskIdByLoggedInUser(loggedInUserId);
-        String permission = permissionService.getPermissionByLoggedInUser(loggedInUserId);
-        Permission permissions = permissionService.getPermissions(loggedInUserId);
 
-        QueueNumber nextQueueNumber = determineNextQueueNumber(permission, permissions);
-
-        prepareModel(model, loggedInUsername, deskNumber, permission, nextQueueNumber);
-
-        processNextQueueNumber(nextQueueNumber);
-    }
-    private QueueNumber determineNextQueueNumber(String permission, Permission permissions) {
+    public QueueNumber determineNextQueueNumber(String permission, Permission permissions) {
         QueueNumber nextQueueNumber = null;
         if (permission != null) {
             if (Boolean.TRUE.equals(permissions.getForRetail())) {
@@ -185,15 +158,9 @@ public class AdminService {
         }
         return nextQueueNumber;
     }
-    private void prepareModel(Model model, String loggedInUsername, Long deskNumber, String permission, QueueNumber nextQueueNumber) {
-        model.addAttribute("loggedInUsername", loggedInUsername);
-        model.addAttribute("deskNumber", deskNumber);
-        model.addAttribute("permission", permission);
-        model.addAttribute("nextQueueNumber", nextQueueNumber);
-        model.addAttribute("queueNumbers", queueNumberRepository.findAll());
-    }
 
-    private void processNextQueueNumber(QueueNumber nextQueueNumber) {
+
+    public void processNextQueueNumber(QueueNumber nextQueueNumber) {
         if (nextQueueNumber != null) {
             nextQueueNumber.setActive(false);
             queueNumberRepository.save(nextQueueNumber);
@@ -201,17 +168,7 @@ public class AdminService {
     }
 
 
-    public void processRedirect(Model model, String redirectLocation) {
-        String loggedInUsername = getLoggedInUsername();
-        Long loggedInUserId = getLoggedInUserIdByUsername(loggedInUsername);
-        Long deskNumber = deskService.getDeskIdByLoggedInUser(loggedInUserId);
-        String permission = permissionService.getPermissionByLoggedInUser(loggedInUserId);
-        Permission permissions = permissionService.getPermissions(loggedInUserId);
-
-        QueueNumber nextQueueNumber = determineNextQueueNumber(permission, permissions);
-
-        prepareModel(model, loggedInUsername, deskNumber, permission, nextQueueNumber);
-
+    public void processRedirect(QueueNumber nextQueueNumber, String redirectLocation) {
         if (nextQueueNumber != null) {
             nextQueueNumber.setToRetail("retail".equals(redirectLocation));
             nextQueueNumber.setToCorporate("corporate".equals(redirectLocation));
@@ -221,17 +178,7 @@ public class AdminService {
             queueNumberRepository.save(nextQueueNumber);
         }
     }
-    public void deleteNextQueueNumber(Model model) {
-        String loggedInUsername = getLoggedInUsername();
-        Long loggedInUserId = getLoggedInUserIdByUsername(loggedInUsername);
-        Long deskNumber = deskService.getDeskIdByLoggedInUser(loggedInUserId);
-        String permission = permissionService.getPermissionByLoggedInUser(loggedInUserId);
-        Permission permissions = permissionService.getPermissions(loggedInUserId);
-
-        QueueNumber nextQueueNumber = determineNextQueueNumber(permission, permissions);
-
-        prepareModel(model, loggedInUsername, deskNumber, permission, nextQueueNumber);
-
+    public void deleteNextQueueNumber(QueueNumber nextQueueNumber) {
         if (nextQueueNumber != null) {
             Desk desk = deskService.findDeskByQueueNumber(nextQueueNumber);
             if (desk != null) {
@@ -241,43 +188,10 @@ public class AdminService {
             queueNumberRepository.delete(nextQueueNumber);
         }
     }
-    public QueueNumber processNextClient(Model model, Employee employee) {
-        String loggedInUsername = getLoggedInUsername();
-        Long loggedInUserId = getLoggedInUserIdByUsername(loggedInUsername);
-        Long deskNumber = deskService.getDeskIdByLoggedInUser(loggedInUserId);
-        String permission = permissionService.getPermissionByLoggedInUser(loggedInUserId);
-        Permission permissions = permissionService.getPermissions(loggedInUserId);
-
-        QueueNumber nextQueueNumber = determineNextQueueNumber(permission, permissions);
-
-        Permission actualPermission = permissionService.getPermissionByEmployee(employee);
-        Integer actualCount = 0;
-        if (actualPermission.getForRetail()) {
-            actualCount = queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue();
-        } else if (actualPermission.getForCorporate()) {
-            actualCount = queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue();
-        } else if (actualPermission.getForTeller()) {
-            actualCount = queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue();
-        } else if (actualPermission.getForPremium()) {
-            actualCount = queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue();
-        }
-        model.addAttribute("actualCount", actualCount);
-        Integer employeeCount = 0;
-        if (actualPermission.getForRetail()) {
-            employeeCount = permissionRepository.countByForRetailTrue();
-        } else if (actualPermission.getForCorporate()) {
-            employeeCount = permissionRepository.countByForCorporateTrue();
-        } else if (actualPermission.getForTeller()) {
-            employeeCount = permissionRepository.countByForTellerTrue();
-        } else if (actualPermission.getForPremium()) {
-            employeeCount = permissionRepository.countByForPremiumTrue();
-        }
-        model.addAttribute("EmployeeCount", employeeCount);
-        return nextQueueNumber;
-    }
 
 
-    public void setActualPermission(Model model, Employee employee) {
+
+    public String setActualPermission(Employee employee) {
         Permission permission = permissionService.getPermissionByEmployee(employee);
         String actualPermission = null;
         if (permission.getForRetail()) {
@@ -289,7 +203,7 @@ public class AdminService {
         } else if (permission.getForPremium()) {
             actualPermission = "Prémium";
         }
-        model.addAttribute("actualPermission", actualPermission);
+        return actualPermission;
     }
 }
 

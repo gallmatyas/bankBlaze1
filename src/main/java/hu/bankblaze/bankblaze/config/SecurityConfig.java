@@ -44,7 +44,8 @@ public class SecurityConfig {
                                 "/premium",
                                 "/queueCall",
                                 "/styles.css",
-                                "/firstPage").permitAll()
+                                "/firstPage",
+                                "/login.css").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
