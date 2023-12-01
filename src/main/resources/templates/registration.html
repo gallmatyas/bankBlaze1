@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
 <header>
-    <h1 th:text="${admins.get(0).getName()}"></h1>
-    <a th:href="@{/logout}">Logout</a>
+    <h1 class="admin-name" th:text="${admins.get(0).getName() + ' - Új ügyintéző felvétele'}"></h1>
+    <h3 class="logout-btn"><a th:href="@{/logout}">Kijelentkezés</a></h3>
     <form th:action="@{admin/eod}" method="post">
-        <button type="submit">Napzárás</button>
+        <button class="end-btn" type="submit">Napzárás</button>
     </form>
 </header>
-<h2>Fiókvezető</h2>
 
-<form th:action="@{/admin}" method="get">
-    <button type="submit">Jogosultságok</button>
-</form>
-<form th:action="@{/admin/statistics}" method="get">
-    <button type="submit">Fiók áttekintő</button>
-</form>
-<form th:action="@{/admin/desk}" method="get">
-    <button type="submit">Pult kiosztás</button>
-</form>
-<form th:action="@{/admin/registration}" method="get">
-    <button type="submit">Új ügyintéző felvétele</button>
-</form>
-<form th:action="@{/admin/management}" method="get">
-    <button type="submit">Ügyintéző kezelés</button>
-</form>
+<div id="buttons1">
 
-<h3>Új ügyintéző felvétele</h3>
+    <form th:action="@{/admin}" method="get">
+        <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Jogosultságok</button>
+    </form>
+    <form th:action="@{/admin/statistics}" method="get">
+        <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Fiók áttekintő</button>
+    </form>
+    <form th:action="@{/admin/desk}" method="get">
+        <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Pult kiosztás</button>
+    </form>
+    <form th:action="@{/admin/registration}" method="get">
+        <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Új ügyintéző felvétele</button>
+    </form>
+    <form th:action="@{/admin/management}" method="get">
+        <button class="btn1" style="--clr:rgb(7, 197, 245);" type="submit">Ügyintéző kezelése</button>
+    </form>
 
-<form method="post" th:action="@{/admin/registration}">
+</div>
 
-    <label for="email">Email:</label>
-    <input th:field="*{newEmployee.email}" type="email" id="email" name="email" required>
-    <br>
+<div class="wrapper">
 
-    <label for="name">Name:</label>
-    <input th:field="*{newEmployee.name}" type="text" id="name" name="name" required>
-    <br>
+    <form method="post" th:action="@{/admin/registration}">
 
-    <label for="password">Password:</label>
-    <input th:field="*{newEmployee.password}" type="password" id="password" name="password" required>
-    <br>
+        <div class="input-box">
+            <div class="input-field">
+                <input th:field="*{newEmployee.email}" type="email" id="email" name="email" placeholder="E-mail cím..."
+                       required>
+            </div>
 
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required>
-    <br>
-    <input type="hidden" id="defaultRole" name="defaultRole" value="USER">
+            <div class="input-field">
+                <input th:field="*{newEmployee.name}" type="text" id="name" name="name" placeholder="Teljes név..." required>
+            </div>
+        </div>
 
-    <input type="submit" value="Register">
-</form>
+        <div class="input-box">
+            <div class="input-field">
+                <input th:field="*{newEmployee.password}" type="password" id="password" name="password"
+                       placeholder="Jelszó..." required>
+            </div>
+
+            <div class="input-field">
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Jelszó megerősítése..."
+                       required>
+            </div>
+        </div>
+        <input type="hidden" id="defaultRole" name="defaultRole" value="USER">
+        <input type="hidden" id="defaultPermissionRetail" name="defaultPermissionRetail" value="false">
+        <input type="hidden" id="defaultPermissionCorporate" name="defaultPermissionCorporate" value="false">
+        <input type="hidden" id="defaultPermissionTeller" name="defaultPermissionTeller" value="false">
+        <input type="hidden" id="defaultPermissionPremium" name="defaultPermissionPremium" value="false">
+
+
+        <button class="reg-btn" type="submit" value="Register">Regisztráció</button>
+
+    </form>
+</div>
+
 </body>
 </html>
