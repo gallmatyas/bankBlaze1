@@ -44,7 +44,7 @@ h1 {
   letter-spacing: 0.1em;
   font-weight: 400;
   padding: 10px 30px;
-  transition: 0.5s;
+  transition: 0.3s;
   width: 550px;
   height: 70px;
 }
@@ -66,7 +66,7 @@ h1 {
   z-index: 1;
 }
 
-h3{
+.container h3{
   font-size: 18px;
   position: fixed;
   bottom: 0;
@@ -74,12 +74,12 @@ h3{
   margin: 10px;
 }
 
-h3 a{
+.container h3 a{
   color: black;
   text-decoration: none;
 }
 
-h3 a:hover{
+.container h3 a:hover{
   color: rgb(22, 131, 233);
   text-shadow: 0 0 35px rgb(22, 131, 233);
 }
@@ -132,4 +132,306 @@ h3 a:hover{
 .queueCall td:last-of-type {
   border-right: none;
   color: rgb(22, 131, 233);
+}
+
+#buttons1 {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn1 {
+  position: relative;
+  background: #fff;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  padding: 10px 30px;
+  transition: 0.3s;
+  width:100%;
+  height: 70px;
+}
+
+.btn1:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.btn1:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.admin-name{
+  display: flex;
+  align-items: flex-end;
+  padding-left: 2%;
+  font-size: 2vw;
+  padding-bottom: 3%;
+}
+
+.table-container table {
+  padding-top: 2%;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.table-container th{
+  font-weight: bold;
+  font-size: 1.5vw;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.table-container input[type="checkbox"] {
+  width: 3vw;
+  height: 3vw;
+}
+
+.table-container td{
+  font-size: 1.2vw;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.save-btn {
+  background: #fff;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: 15%;
+  height: 5%;
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.save-btn:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.save-btn:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.logout-btn{
+  text-transform: uppercase;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+}
+
+.logout-btn a{
+  color: black;
+  text-decoration: none;
+}
+
+.logout-btn a:hover{
+  color: rgb(22, 131, 233);
+  text-shadow: 0 0 35px rgb(22, 131, 233);
+}
+
+.end-btn{
+  background: #e5e2e2;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: 7%;
+  height: 5%;
+  position: fixed;
+  top: 2%;
+  right: 1%;
+}
+
+.end-btn:hover{
+  color: rgb(243, 6, 6);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.end-btn:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.table-container-statistics table {
+  padding-top: 2%;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.table-container-statistics th{
+  font-weight: bold;
+  font-size: 1.5vw;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.table-container-statistics td{
+  height: 3em;
+  font-size: 1.2vw;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.wrapper{
+  width: 70%;
+  border-radius:10px;
+  color: black;
+  padding: 5% 35px 55px;
+  margin: 0 auto;
+}
+
+.wrapper .input-box{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.input-box .input-field{
+  position: relative;
+  width: 48%;
+  height: 50px;
+  margin: 13px 0;
+  transition: 0.3s;
+}
+
+.input-box .input-field input{
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: 2px solid black;
+  outline: none;
+  font-size: 20px;
+  color:black;
+  padding: 15px 15px 15px 40px;
+}
+
+.input-box .input-field input::placeholder{
+  color: #b9b7b7;
+}
+
+.input-field:hover{
+  color: rgb(22, 131, 233);
+  box-shadow: 0 0 35px;
+}
+
+.reg-btn {
+  background: #fff;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: 22%;
+  height: 7%;
+  position: absolute;
+  bottom: 27%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.reg-btn:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.reg-btn:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.action-btn{
+    background: #fff;
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    transition: 0.3s;
+    width: 15%;
+    height: 5%;
+    margin-right: 10px;
+}
+
+.action-btn:hover{
+    color: rgb(22, 131, 233);
+    letter-spacing: 0.18em;
+    box-shadow: 0 0 35px;
+}
+
+.action-btn:before{
+    position: absolute;
+    inset: 2px;
+    background: #fff;
+}
+
+.action-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.action-buttons {
+    position: fixed;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.action-form select {
+    text-transform: uppercase;
+    font-size: 1.25em;
+    letter-spacing: 0.1em;
+    font-weight: 300;
+    margin-top: 5%;
+    text-align: center;
+    box-shadow: 0 0 5px;
+}
+
+.table-container input[type="radio"] {
+    width: 2.8vw;
+    height: 2.8vw;
 }

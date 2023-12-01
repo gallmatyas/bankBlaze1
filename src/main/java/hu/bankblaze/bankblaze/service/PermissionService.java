@@ -1,5 +1,6 @@
 package hu.bankblaze.bankblaze.service;
 
+import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
 import hu.bankblaze.bankblaze.repo.PermissionRepository;
 import lombok.AllArgsConstructor;
@@ -83,5 +84,49 @@ public class PermissionService {
             }
         });
     }
+
+    public Permission getPermissionByEmployee(Employee employee){
+        return permissionRepository.findByEmployeeId(employee.getId());
+    }
+    public String getPermissionByLoggedInUser(Long loggedInUserId) {
+        Permission permission = permissionRepository.findByEmployeeId(loggedInUserId);
+        if (permission != null) {
+            if (Boolean.TRUE.equals(permission.getForCorporate())) {
+                return "Vállalat";
+            } else if (Boolean.TRUE.equals(permission.getForRetail())) {
+                return "Lakosság";
+            } else if (Boolean.TRUE.equals(permission.getForTeller())) {
+                return  "Pénztár";
+            } else if (Boolean.TRUE.equals(permission.getForPremium())) {
+                return "Prémium";
+            } else {
+                return "Nincsenek engedélyek";
+            }
+        } else {
+            return "Nincs ilyen azonosítójú felhasználó";
+        }
+
+    }
+
+
+    public Long getNextPermissionId() {
+        Long maxId = permissionRepository.findMaxId();
+        return (maxId != null) ? maxId + 1 : 1L;
+    }
+
+    public void createPermissionForEmployee(Employee employee, String defaultPermissionRetail, String defaultPermissionCorporate, String defaultPermissionTeller, String defaultPermissionPremium) {
+        Long nextId = getNextPermissionId();
+
+        Permission permission = new Permission();
+        permission.setId(nextId);
+        permission.setEmployee(employee);
+        permission.setForRetail(Boolean.valueOf(defaultPermissionRetail));
+        permission.setForCorporate(Boolean.valueOf(defaultPermissionCorporate));
+        permission.setForTeller(Boolean.valueOf(defaultPermissionTeller));
+        permission.setForPremium(Boolean.valueOf(defaultPermissionPremium));
+
+        savePermisson(permission);
+    }
+
 
 }

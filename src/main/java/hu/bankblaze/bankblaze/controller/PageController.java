@@ -41,6 +41,11 @@ public class PageController {
     private AdminService adminService;
     private QueueNumberService queueNumberService;
 
+    @GetMapping("/firstPage")
+    public String startPage() {
+        return "firstPage";
+    }
+
     @GetMapping("/home")
     public String goHome (Model model) {
         model.addAttribute("newQueueNumber", new QueueNumber());
@@ -114,7 +119,7 @@ public class PageController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "home"; // Ez a view neve, amely megjeleníti a kijelentkezési oldalt (pl. logout.html)
+        return "firstPage";
     }
 
 }

@@ -23,7 +23,6 @@ public class AdminController {
 
     private AdminService adminService;
     private QueueNumberService queueNumberService;
-    private QueueNumberRepository queueNumberRepository;
     private PermissionService permissionService;
     private DeskService deskService;
 
@@ -47,10 +46,10 @@ public class AdminController {
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("lakossagCount", queueNumberRepository.countByNumberBetween(1000, 1999));
-        model.addAttribute("vallalatCount", queueNumberRepository.countByNumberBetween(2000, 2999));
-        model.addAttribute("penztarCount", queueNumberRepository.countByNumberBetween(3000, 3999));
-        model.addAttribute("premiumCount", queueNumberRepository.countByNumberBetween(9000, 9999));
+        model.addAttribute("retailCount", queueNumberService.countRetail());
+        model.addAttribute("corporateCount", queueNumberService.countCorporate());
+        model.addAttribute("tellerCount", queueNumberService.countTeller());
+        model.addAttribute("premiumCount", queueNumberService.countPremium());
         return "statistics";
     }
 
@@ -93,9 +92,17 @@ public class AdminController {
 
     @PostMapping("/registration")
     public String createEmployee(@ModelAttribute("newEmployee") Employee employee,
-                                 @RequestParam("defaultRole") String defaultRole) {
+                                 @RequestParam("defaultRole") String defaultRole,
+                                 @RequestParam("defaultPermissionRetail") String defaultPermissionRetail,
+                                 @RequestParam("defaultPermissionCorporate") String defaultPermissionCorporate,
+                                 @RequestParam("defaultPermissionTeller") String defaultPermissionTeller,
+                                 @RequestParam("defaultPermissionPremium") String defaultPermissionPremium) {
+
         employee.setRole(String.valueOf(defaultRole));
         adminService.saveAdmin(employee);
+
+        permissionService.createPermissionForEmployee(employee, defaultPermissionRetail,
+                defaultPermissionCorporate, defaultPermissionTeller, defaultPermissionPremium);
         return "redirect:/admin";
     }
 
@@ -125,6 +132,19 @@ public class AdminController {
     @PostMapping("/eod")
     public String endOfDay() {
         queueNumberService.deleteAllQueueNumbers();
+        return "redirect:/admin";
+    }
+    @GetMapping("/delete")
+    public String showDeleteForm(Model model) {
+        model.addAttribute("admins", adminService.getAllAdmins());
+        model.addAttribute("admins", adminService.getAllClerks());
+        return "delete";
+    }
+    @PostMapping("/delete")
+    public String deleteAdmin(@RequestParam("action") String action, String name) {
+        if (action.equals("delete")) {
+            adminService.deleteAdminByName(name);
+        }
         return "redirect:/admin";
     }
 }

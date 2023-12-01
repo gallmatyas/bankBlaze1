@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
 import java.util.List;
 
 @Service
@@ -15,6 +17,7 @@ public class QueueNumberService {
 
     @Autowired
     private QueueNumberRepository queueNumberRepository;
+    private AdminService adminService;
 
 
     public void deleteQueueNumberById(Long id) {
@@ -82,19 +85,19 @@ public class QueueNumberService {
         queueNumberRepository.deleteById(queueNumber.getId());
     }
 
-    private int countRetail() {
+    public int countRetail() {
         return queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue() - 1;
     }
 
-    private int countCorporate() {
+    public int countCorporate() {
         return queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue() - 1;
     }
 
-    private int countTeller() {
+    public int countTeller() {
         return queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue() - 1;
     }
 
-    private int countPremium() {
+    public int countPremium() {
         return queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue() - 1;
     }
 
@@ -108,6 +111,36 @@ public class QueueNumberService {
         }
         throw new Exception();
     }
+    public void deleteQueueNumberByNumber(int numberToDelete) {
+        queueNumberRepository.deleteByNumber(numberToDelete);
+    }
+    public QueueNumber getNextRetail() {
+        return queueNumberRepository.findFirstByActiveTrueAndToRetailTrue();
+    }
+
+    public QueueNumber getNextCorporate() {
+        return queueNumberRepository.findFirstByActiveTrueAndToCorporateTrue();
+    }
+
+    public QueueNumber getNextTeller() {
+
+        return queueNumberRepository.findFirstByActiveTrueAndToTellerTrue();
+    }
+
+    public QueueNumber getNextPremium() {
+
+        return queueNumberRepository.findFirstByActiveTrueAndToPremiumTrue();
+    }
+    public QueueNumber getSmallestNumber(List<QueueNumber> queueNumberList){
+        Long minIndex = queueNumberList.get(0).getId();
+        for (int i = 1; i < queueNumberList.size(); i++) {
+            if (minIndex < queueNumberList.get(i).getId()){
+                minIndex = queueNumberList.get(i).getId();
+            }
+        } return getQueueNumberById(minIndex);
+    }
+
+
 }
 
 
