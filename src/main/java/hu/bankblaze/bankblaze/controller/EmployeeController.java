@@ -1,17 +1,16 @@
 package hu.bankblaze.bankblaze.controller;
 
+import hu.bankblaze.bankblaze.model.Desk;
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
 import hu.bankblaze.bankblaze.model.QueueNumber;
-import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
 import hu.bankblaze.bankblaze.service.DeskService;
 import hu.bankblaze.bankblaze.service.PermissionService;
 import hu.bankblaze.bankblaze.service.QueueNumberService;
 import lombok.AllArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +27,7 @@ public class EmployeeController {
     private DeskService deskService;
     private QueueNumberService queueNumberService;
     private PermissionService permissionService;
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @GetMapping
     @PreAuthorize("hasAuthority('USER')")
@@ -50,6 +50,10 @@ public class EmployeeController {
         Employee employee = adminService.getEmployeeByName(adminService.getLoggedInUsername());
         deskService.nextQueueNumber(employee);
         model.addAttribute("actualPermission", adminService.setActualPermission(employee));
+        Desk desk = deskService.getDeskByEmployeeId(employee.getId());
+        if (desk != null) {
+            simpMessagingTemplate.convertAndSend("/topic/app", desk);
+        }
         return "redirect:/desk/next";
     }
 
