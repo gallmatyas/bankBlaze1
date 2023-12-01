@@ -109,8 +109,23 @@ public class PermissionService {
     }
 
 
-    public Permission getPermissions(Long loggedInUserId) {
-        return permissionRepository.findByEmployeeId(loggedInUserId);
+    public Long getNextPermissionId() {
+        Long maxId = permissionRepository.findMaxId();
+        return (maxId != null) ? maxId + 1 : 1L;
+    }
+
+    public void createPermissionForEmployee(Employee employee, String defaultPermissionRetail, String defaultPermissionCorporate, String defaultPermissionTeller, String defaultPermissionPremium) {
+        Long nextId = getNextPermissionId();
+
+        Permission permission = new Permission();
+        permission.setId(nextId);
+        permission.setEmployee(employee);
+        permission.setForRetail(Boolean.valueOf(defaultPermissionRetail));
+        permission.setForCorporate(Boolean.valueOf(defaultPermissionCorporate));
+        permission.setForTeller(Boolean.valueOf(defaultPermissionTeller));
+        permission.setForPremium(Boolean.valueOf(defaultPermissionPremium));
+
+        savePermisson(permission);
     }
 
 

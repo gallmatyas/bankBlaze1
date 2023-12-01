@@ -119,7 +119,7 @@ public class PageController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "home"; // Ez a view neve, amely megjeleníti a kijelentkezési oldalt (pl. logout.html)
+        return "firstPage";
     }
 
 }
