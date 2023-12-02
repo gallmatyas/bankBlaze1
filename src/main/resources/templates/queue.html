@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>BankBlaze</title>
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/SocketConfig.js"></script>
+    <script>
+        window.onload = function() {
+            connect();
+        };
+    </script>
 </head>
 <body>
 <table class="queueCall">
@@ -16,7 +25,7 @@
     <tbody>
     <tr th:each="desk : ${desks}">
         <td th:text="'0' + ${desk.id}"></td>
-        <td th:text="${desk.queueNumber.getNumber()}"></td>
+        <td th:id="'queueNumber' + ${desk.getId()}" th:text="${desk.queueNumber.getNumber()}"></td>
     </tr>
     </tbody>
 </table>
