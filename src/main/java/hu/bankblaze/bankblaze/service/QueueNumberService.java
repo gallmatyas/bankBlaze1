@@ -2,9 +2,11 @@ package hu.bankblaze.bankblaze.service;
 
 import hu.bankblaze.bankblaze.model.QueueNumber;
 import hu.bankblaze.bankblaze.repo.QueueNumberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -21,11 +23,21 @@ public class QueueNumberService {
 
 
     public void deleteQueueNumberById(Long id) {
-        queueNumberRepository.deleteById(id);
+        try {
+            queueNumberRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException | IllegalArgumentException e) {
+
+            throw new EntityNotFoundException("Nem található entitás az adott azonosítóval: " + id);
+        }
     }
 
-    public void deleteAllQueueNumbers() {
-        queueNumberRepository.deleteAll();
+    public void deleteAllQueueNumbers () {
+        try {
+            queueNumberRepository.deleteAll();
+        } catch (Exception e) {
+
+            throw new RuntimeException("Nem sikerült az összes entitás törlése.", e);
+        }
     }
 
     public QueueNumber getQueueNumber() {

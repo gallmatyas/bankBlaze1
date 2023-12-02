@@ -15,7 +15,7 @@ public class Permission {
     @Id
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

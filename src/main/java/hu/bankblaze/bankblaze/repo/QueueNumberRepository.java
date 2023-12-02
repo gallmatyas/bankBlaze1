@@ -34,6 +34,7 @@ public interface QueueNumberRepository extends JpaRepository<QueueNumber, Long> 
     int countByActiveIsTrueAndToTellerIsTrue();
 
     int countByActiveIsTrueAndToPremiumIsTrue();
+
 }
 
 

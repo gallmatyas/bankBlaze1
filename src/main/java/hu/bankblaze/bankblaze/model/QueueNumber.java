@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,4 +24,7 @@ public class QueueNumber {
     private Boolean toTeller = false;
     private Boolean toPremium = false;
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "queueNumber", cascade = CascadeType.REMOVE)
+    private List<Desk> desks = new ArrayList<>();
 }
