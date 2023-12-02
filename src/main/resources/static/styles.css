@@ -91,14 +91,14 @@ h1 {
 
 .queueCall {
   table-layout: fixed;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
-  vertical-align: center;
 }
 
 .queueCall th {
-  font-size: 200px;
+  font-size: 8vw;
   border: 10px solid black;
   border-top: none;
 }
@@ -116,7 +116,7 @@ h1 {
 }
 
 .queueCall td {
-  font-size: 115px;
+  font-size: 6vw;
   text-align: center;
   padding: 5px;
   border: 10px solid black;
