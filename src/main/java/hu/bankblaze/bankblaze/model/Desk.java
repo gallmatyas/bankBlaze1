@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 public class Desk {
     @Id
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "employee_id")
     private Employee employee;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "queue_number_id")
     private QueueNumber queueNumber;
 }
