@@ -6,7 +6,11 @@
     <title>Spring Security Example</title>
     <link rel="stylesheet" href="/login.css" />
 </head>
-
+<header>
+    <div class="invalidLogin" th:if="${param.error}">
+        Invalid username or password.
+    </div>
+</header>
 <body>
 <div class="container" >
 
@@ -15,6 +19,7 @@
             <label style="text-align: center;"  >Felhasználó:</label>
             <input type="text" name="username" class="input-field" style="text-align: center;" />
         </div>
+
         <div class="input-group">
             <label style="text-align: center;">Jelszó:</label>
             <input type="password" name="password" class="input-field" style="text-align: center;" />
