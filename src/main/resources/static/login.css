@@ -5,6 +5,14 @@
     font-family: 'Franklin Gothic Medium', serif;
 }
 
+.invalidLogin {
+    padding: 2%;
+    justify-content: center;
+    margin: auto auto;
+    background: white;
+    color: darkred;
+}
+
 body {
     background: #dbd9d9;
 }
