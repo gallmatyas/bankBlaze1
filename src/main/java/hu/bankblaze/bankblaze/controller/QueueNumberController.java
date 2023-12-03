@@ -23,10 +23,16 @@ public class QueueNumberController {
 
     @PostMapping("/showNumber")
     public String confirmQueueNumber(@RequestParam("action") String action) {
-        if (action.equals("delete")) {
-            queueNumberService.deleteQueueNumber();
+        try {
+            if (action.equals("delete")) {
+                queueNumberService.deleteQueueNumber();
+            }
+            return "redirect:/home";
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return "redirect:/errorPage";
         }
-        return "redirect:/home";
     }
 
 

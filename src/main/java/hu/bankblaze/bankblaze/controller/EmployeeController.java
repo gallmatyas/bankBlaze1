@@ -48,13 +48,15 @@ public class EmployeeController {
     @PostMapping
     public String nextQueueNumber(Model model) {
         Employee employee = adminService.getEmployeeByName(adminService.getLoggedInUsername());
-        deskService.nextQueueNumber(employee);
-        model.addAttribute("actualPermission", adminService.setActualPermission(employee));
         Desk desk = deskService.getDeskByEmployeeId(employee.getId());
-        if (desk != null) {
-            simpMessagingTemplate.convertAndSend("/topic/app", desk);
+        model.addAttribute("actualPermission", adminService.setActualPermission(employee));
+        if (deskService.nextQueueNumber(employee)) {
+            if (desk != null) {
+                simpMessagingTemplate.convertAndSend("/topic/app", desk);
+            }
+            return "redirect:/desk/next";
         }
-        return "redirect:/desk/next";
+        return "redirect:/employee";
     }
 
     @GetMapping("/closure")
