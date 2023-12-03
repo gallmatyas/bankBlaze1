@@ -7,6 +7,12 @@
     <title>Pénztár - BankBlaze</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+<header>
+    <a th:href="@{/home}"></a>
+    <form th:action="@{/queue/showNumber}" method="post">
+        <button class= "home-btn" type="submit" name="action" value="delete">Kezdőoldal</button>
+    </form>
+</header>
 
 <body>
 <div class="container">
