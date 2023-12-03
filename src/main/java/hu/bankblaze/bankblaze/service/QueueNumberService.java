@@ -134,7 +134,7 @@ public class QueueNumberService {
     public QueueNumber getSmallestNumber(List<QueueNumber> queueNumberList){
         Long minIndex = queueNumberList.get(0).getId();
         for (int i = 1; i < queueNumberList.size(); i++) {
-            if (minIndex < queueNumberList.get(i).getId()){
+            if (minIndex > queueNumberList.get(i).getId()){
                 minIndex = queueNumberList.get(i).getId();
             }
         } return getQueueNumberById(minIndex);
