@@ -9,8 +9,7 @@ import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -31,8 +30,29 @@ public class DeskService {
     public void modifyEmployee(Long id, Long newEmployee) {
         Desk desk = getDeskById(id);
         Employee employee = employeeRepository.findById(newEmployee).orElse(null);
-        desk.setEmployee(employee);
-        deskRepository.save(desk);
+        if (employee != null) {
+            desk.setEmployee(employee);
+            deskRepository.save(desk);
+        }
+    }
+
+    public void assignEmployeeToDesk(Map<String, String> employeesToDesks) {
+        Set<Long> selectedDesks = new HashSet<>();
+
+        employeesToDesks.forEach((param, value) -> {
+            if (param.startsWith("desk")) {
+                Long deskId = Long.parseLong(value);
+                selectedDesks.add(deskId);
+            }
+        });
+
+        for (Long deskId : selectedDesks) {
+            String employeeParam = "employee" + deskId;
+            if (employeesToDesks.containsKey(employeeParam)) {
+                Long employeeId = Long.parseLong(employeesToDesks.get(employeeParam));
+                modifyEmployee(deskId, employeeId);
+            }
+        }
     }
 
     public Long getDeskIdByLoggedInUser(Long loggedInUserId) {
@@ -79,6 +99,5 @@ public class DeskService {
     protected Desk findDeskByQueueNumber(QueueNumber queueNumber) {
         return deskRepository.findByQueueNumber(queueNumber);
     }
-
 
 }

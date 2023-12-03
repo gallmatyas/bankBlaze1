@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 @Controller
@@ -61,24 +63,8 @@ public class AdminController {
     }
 
     @PostMapping("/desk")
-    public String setDesks(@RequestParam("desk1Id") Long id1,
-                           @RequestParam("desk1") Long desk1,
-                           @RequestParam("desk2Id") Long id2,
-                           @RequestParam("desk2") Long desk2,
-                           @RequestParam("desk3Id") Long id3,
-                           @RequestParam("desk3") Long desk3,
-                           @RequestParam("desk4Id") Long id4,
-                           @RequestParam("desk4") Long desk4,
-                           @RequestParam("desk5Id") Long id5,
-                           @RequestParam("desk5") Long desk5,
-                           @RequestParam("desk6Id") Long id6,
-                           @RequestParam("desk6") Long desk6) {
-        deskService.modifyEmployee(id1, desk1);
-        deskService.modifyEmployee(id2, desk2);
-        deskService.modifyEmployee(id3, desk3);
-        deskService.modifyEmployee(id4, desk4);
-        deskService.modifyEmployee(id5, desk5);
-        deskService.modifyEmployee(id6, desk6);
+    public String setDesks(@RequestParam Map<String, String> employeesToDesks) {
+        deskService.assignEmployeeToDesk(employeesToDesks);
         return "redirect:/admin/desk";
     }
 
