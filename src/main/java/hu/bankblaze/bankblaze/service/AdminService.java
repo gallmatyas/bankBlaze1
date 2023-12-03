@@ -54,11 +54,19 @@ public class AdminService {
     }
 
     public void deleteAdminByName(String name) {
-        Employee employee = employeeRepository.findByName(name).orElse(null);
-        if (employee != null) {
-            employeeRepository.delete(employee);
+        try {
+            Employee employee = employeeRepository.findByName(name).orElse(null);
+            if (employee != null) {
+                employeeRepository.delete(employee);
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            throw new RuntimeException("Hiba történt az admin törlése közben: " + e.getMessage());
         }
     }
+
 
     public void modifyEmployeeByName(String name, String newRole) {
         Employee employee = employeeRepository.getAdminByName(name);
@@ -186,6 +194,8 @@ public class AdminService {
                 deskService.saveDesk(desk);
             }
             queueNumberRepository.delete(nextQueueNumber);
+        } else {
+            throw new IllegalArgumentException("A nextQueueNumber értéke null, nem törölhető.");
         }
     }
 

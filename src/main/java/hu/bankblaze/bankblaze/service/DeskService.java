@@ -20,10 +20,6 @@ public class DeskService {
     private QueueNumberService queueNumberService;
     private PermissionService permissionService;
 
-    public void saveDeskLayout(Desk desk) {
-        deskRepository.save(desk);
-    }
-
     public Desk getDeskById(Long id) {
         return deskRepository.findById(id).orElse(null);
     }
@@ -39,12 +35,12 @@ public class DeskService {
         deskRepository.save(desk);
     }
 
-
     public Long getDeskIdByLoggedInUser(Long loggedInUserId) {
         Desk desk = deskRepository.findByEmployeeId(loggedInUserId);
 
         return desk.getId();
     }
+
     public Desk getDeskByEmployeeId(Long employeeId) {
         return deskRepository.findByEmployeeId(employeeId);
     }
@@ -53,24 +49,33 @@ public class DeskService {
         deskRepository.save(desk);
     }
 
-    public void nextQueueNumber(Employee employee) {
+    public boolean nextQueueNumber(Employee employee) {
         Desk desk = getDeskByEmployeeId(employee.getId());
         Permission permission = permissionService.getPermissionByEmployee(employee);
         List<QueueNumber> queueNumberList = new ArrayList<>();
-        if (permission.getForRetail()){
-            queueNumberList.add(queueNumberService.getNextRetail());
-        } else if (permission.getForCorporate()){
-            queueNumberList.add(queueNumberService.getNextCorporate());
-        } else if (permission.getForTeller()){
-            queueNumberList.add(queueNumberService.getNextTeller());
-        } else if (permission.getForPremium()) {
-            queueNumberList.add(queueNumberService.getNextPremium());
+        try {
+            if (permission.getForRetail() && queueNumberService.countRetail() > 0) {
+                queueNumberList.add(queueNumberService.getNextRetail());
+            }
+            if (permission.getForCorporate() && queueNumberService.countCorporate() > 0) {
+                queueNumberList.add(queueNumberService.getNextCorporate());
+            }
+            if (permission.getForTeller() && queueNumberService.countTeller() > 0) {
+                queueNumberList.add(queueNumberService.getNextTeller());
+            }
+            if (permission.getForPremium() && queueNumberService.countPremium() > 0) {
+                queueNumberList.add(queueNumberService.getNextPremium());
+            }
+            QueueNumber queueNumber = queueNumberService.getSmallestNumber(queueNumberList);
+            desk.setQueueNumber(queueNumber);
+            deskRepository.save(desk);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
-        QueueNumber queueNumber = queueNumberService.getSmallestNumber(queueNumberList);
-        desk.setQueueNumber(queueNumber);
-        System.out.println(desk.getQueueNumber());
-        deskRepository.save(desk);
     }
+
     protected Desk findDeskByQueueNumber(QueueNumber queueNumber) {
         return deskRepository.findByQueueNumber(queueNumber);
     }

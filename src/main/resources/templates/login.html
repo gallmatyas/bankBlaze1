@@ -3,14 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Spring Security Example</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="/login.css" />
 </head>
+
 <header>
     <div class="invalidLogin" th:if="${param.error}">
-        Invalid username or password.
+        Helytelen felhasználónév vagy jelszó!
     </div>
 </header>
+
 <body>
 <div class="container" >
 
