@@ -9,8 +9,7 @@ import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -19,10 +18,6 @@ public class DeskService {
     private EmployeeRepository employeeRepository;
     private QueueNumberService queueNumberService;
     private PermissionService permissionService;
-
-    public void saveDeskLayout(Desk desk) {
-        deskRepository.save(desk);
-    }
 
     public Desk getDeskById(Long id) {
         return deskRepository.findById(id).orElse(null);
@@ -35,16 +30,37 @@ public class DeskService {
     public void modifyEmployee(Long id, Long newEmployee) {
         Desk desk = getDeskById(id);
         Employee employee = employeeRepository.findById(newEmployee).orElse(null);
-        desk.setEmployee(employee);
-        deskRepository.save(desk);
+        if (employee != null) {
+            desk.setEmployee(employee);
+            deskRepository.save(desk);
+        }
     }
 
+    public void assignEmployeeToDesk(Map<String, String> employeesToDesks) {
+        Set<Long> selectedDesks = new HashSet<>();
+
+        employeesToDesks.forEach((param, value) -> {
+            if (param.startsWith("desk")) {
+                Long deskId = Long.parseLong(value);
+                selectedDesks.add(deskId);
+            }
+        });
+
+        for (Long deskId : selectedDesks) {
+            String employeeParam = "employee" + deskId;
+            if (employeesToDesks.containsKey(employeeParam)) {
+                Long employeeId = Long.parseLong(employeesToDesks.get(employeeParam));
+                modifyEmployee(deskId, employeeId);
+            }
+        }
+    }
 
     public Long getDeskIdByLoggedInUser(Long loggedInUserId) {
         Desk desk = deskRepository.findByEmployeeId(loggedInUserId);
 
         return desk.getId();
     }
+
     public Desk getDeskByEmployeeId(Long employeeId) {
         return deskRepository.findByEmployeeId(employeeId);
     }
@@ -53,27 +69,35 @@ public class DeskService {
         deskRepository.save(desk);
     }
 
-    public void nextQueueNumber(Employee employee) {
+    public boolean nextQueueNumber(Employee employee) {
         Desk desk = getDeskByEmployeeId(employee.getId());
         Permission permission = permissionService.getPermissionByEmployee(employee);
         List<QueueNumber> queueNumberList = new ArrayList<>();
-        if (permission.getForRetail()){
-            queueNumberList.add(queueNumberService.getNextRetail());
-        } else if (permission.getForCorporate()){
-            queueNumberList.add(queueNumberService.getNextCorporate());
-        } else if (permission.getForTeller()){
-            queueNumberList.add(queueNumberService.getNextTeller());
-        } else if (permission.getForPremium()) {
-            queueNumberList.add(queueNumberService.getNextPremium());
+        try {
+            if (permission.getForRetail() && queueNumberService.countRetail() > 0) {
+                queueNumberList.add(queueNumberService.getNextRetail());
+            }
+            if (permission.getForCorporate() && queueNumberService.countCorporate() > 0) {
+                queueNumberList.add(queueNumberService.getNextCorporate());
+            }
+            if (permission.getForTeller() && queueNumberService.countTeller() > 0) {
+                queueNumberList.add(queueNumberService.getNextTeller());
+            }
+            if (permission.getForPremium() && queueNumberService.countPremium() > 0) {
+                queueNumberList.add(queueNumberService.getNextPremium());
+            }
+            QueueNumber queueNumber = queueNumberService.getSmallestNumber(queueNumberList);
+            desk.setQueueNumber(queueNumber);
+            deskRepository.save(desk);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
-        QueueNumber queueNumber = queueNumberService.getSmallestNumber(queueNumberList);
-        desk.setQueueNumber(queueNumber);
-        System.out.println(desk.getQueueNumber());
-        deskRepository.save(desk);
     }
+
     protected Desk findDeskByQueueNumber(QueueNumber queueNumber) {
         return deskRepository.findByQueueNumber(queueNumber);
     }
-
 
 }

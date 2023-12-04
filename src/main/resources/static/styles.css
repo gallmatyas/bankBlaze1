@@ -91,14 +91,14 @@ h1 {
 
 .queueCall {
   table-layout: fixed;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
-  vertical-align: center;
 }
 
 .queueCall th {
-  font-size: 200px;
+  font-size: 8vw;
   border: 10px solid black;
   border-top: none;
 }
@@ -116,7 +116,7 @@ h1 {
 }
 
 .queueCall td {
-  font-size: 115px;
+  font-size: 6vw;
   text-align: center;
   padding: 5px;
   border: 10px solid black;
@@ -434,4 +434,69 @@ h1 {
 .table-container input[type="radio"] {
     width: 2.8vw;
     height: 2.8vw;
+}
+.home-btn {
+  background: white;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: 7%;
+  height: 5%;
+  position: fixed;
+  top: 2%;
+  left: 1%;
+}
+.home-btn:hover{
+  color: rgb(22, 131, 233);
+  box-shadow: 0 0 35px;
+}
+
+.placeholder {
+  position: relative;
+  background: #fff;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  padding: 10px 30px;
+  transition: 0.3s;
+  width: 550px;
+  height: 70px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 10px;
+}
+
+
+.input-container label {
+  margin-bottom: 10px;
+}
+
+.input-container input {
+  margin-bottom: 20px;
+}
+
+.submit-btn {
+  margin-top: 24px;
+  width: 200px;
+  font-size: 26px;
+  padding-left: 1cm;
+  padding-right: 1cm;
+  box-sizing: border-box;
+  background-color: white;
+}
+.submit-btn:hover{
+  color: rgb(22, 131, 233);
+  box-shadow: 0 0 35px;
 }
