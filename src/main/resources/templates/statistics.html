@@ -41,8 +41,7 @@
     <thead>
     <tr>
         <th>Szolgáltatás</th>
-        <th>Várakozók</th>
-        <th>Várakozási idő</th>
+        <th>Várakozók száma</th>
         <th>Kiszolgálás alatt</th>
         <th>Összesen</th>
     </tr>
@@ -52,6 +51,9 @@
     <tr>
         <td>Lakosság</td>
         <td th:text="${retailCount}"></td>
+        <td th:text="${retailAtDeskCount}"></td>
+        <td th:text="${retailCount}"></td>
+
     </tr>
     <tr>
         <td>Vállalat</td>

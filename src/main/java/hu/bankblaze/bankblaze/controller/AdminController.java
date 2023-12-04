@@ -47,10 +47,18 @@ public class AdminController {
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("retailCount", queueNumberService.countRetail());
-        model.addAttribute("corporateCount", queueNumberService.countCorporate());
-        model.addAttribute("tellerCount", queueNumberService.countTeller());
-        model.addAttribute("premiumCount", queueNumberService.countPremium());
+        model.addAttribute("retailCount",
+                queueNumberService.countRetail() - deskService.countRetailCustomersUnderService());
+        model.addAttribute("retailAtDeskCount", deskService.countRetailCustomersUnderService());
+        model.addAttribute("corporateCount",
+                queueNumberService.countCorporate() - deskService.countCorporateCustomersUnderService());
+        model.addAttribute("corporateAtDeskCount", deskService.countCorporateCustomersUnderService());
+        model.addAttribute("tellerCount",
+                queueNumberService.countTeller() - deskService.countTellerCustomersUnderService());
+        model.addAttribute("tellerAtDeskCount", deskService.countTellerCustomersUnderService());
+        model.addAttribute("premiumCount",
+                queueNumberService.countPremium() - deskService.countPremiumCustomersUnderService());
+        model.addAttribute("premiumAtDeskCount", deskService.countPremiumCustomersUnderService());
         return "statistics";
     }
 
