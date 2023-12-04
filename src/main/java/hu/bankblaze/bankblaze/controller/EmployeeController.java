@@ -52,9 +52,13 @@ public class EmployeeController {
         model.addAttribute("actualPermission", adminService.setActualPermission(employee));
         Desk desk = deskService.getDeskByEmployeeId(employee.getId());
         if (desk != null) {
-            simpMessagingTemplate.convertAndSend("/topic/app", desk);
+            sendMessage(desk);
         }
         return "redirect:/desk/next";
+    }
+
+    private void sendMessage(Desk desk) {
+        simpMessagingTemplate.convertAndSend("/topic/app", desk);
     }
 
     @GetMapping("/closure")
@@ -88,7 +92,6 @@ public class EmployeeController {
         adminService.deleteNextQueueNumber(nextQueueNumber);
         return "redirect:/employee";
     }
-
 
 }
 

@@ -8,6 +8,7 @@ function connect() {
         stompClient.subscribe('/topic/app', function (desk) {
             sendRefresh(JSON.parse(desk.body));
             clickOnIt();
+            flashing(JSON.parse(desk.body));
         });
     });
 
@@ -30,4 +31,16 @@ function notify() {
             console.error(error);
         });
     }
+}
+
+function flashing(desk) {
+    console.log(desk);
+    let currentNumber = document.getElementById('queueNumber' + desk.id);
+    let currentDesk = document.getElementById('desk' + desk.id);
+    currentNumber.classList.add('flash');
+    currentDesk.classList.add('flash')
+    setTimeout(function () {
+        currentNumber.classList.remove('flash')
+        currentDesk.classList.remove('flash')
+    }, 4000);
 }

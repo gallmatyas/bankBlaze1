@@ -16,4 +16,5 @@
     background-color: red;
     animation-name: flash;
     animation-duration: 4s;
+    margin: 1px;
 }
