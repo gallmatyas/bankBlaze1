@@ -59,6 +59,10 @@ public class EmployeeController {
         return "redirect:/employee";
     }
 
+    private void sendMessage(Desk desk) {
+        simpMessagingTemplate.convertAndSend("/topic/app", desk);
+    }
+
     @GetMapping("/closure")
     public String getClosure(Model model){
         Employee employee = adminService.getEmployeeByName(adminService.getLoggedInUsername());
@@ -90,7 +94,6 @@ public class EmployeeController {
         adminService.deleteNextQueueNumber(nextQueueNumber);
         return "redirect:/employee";
     }
-
 
 }
 
