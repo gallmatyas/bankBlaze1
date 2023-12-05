@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Get the next client</title>
+  <title>Következő ügyfél</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
+
 <body>
 <header>
-  <h2>  <span th:text="${desk.getEmployee().getName()}"></span></h2>
-  <h2>  A pult száma: <span th:text="${desk.getId()}"></span></h2>
-  <h2>  A következő <span th:text="${actualPermission}"></span>i ügyfél:
-    <span th:text="${desk.getQueueNumber().getName()}"></span></h2>
+  <h1 class="admin-name" th:text="${desk.getEmployee().getName()}"></h1>
+  <h2 class="desk1-name"> A pult száma:&nbsp;<span id="id-color" th:text="${desk.getId()}"></span></h2>
 </header>
-<h2>Várakozó ügyfelek</h2>
+
+<h2 class="desk-name">Várakozó ügyfelek</h2>
+
+<div class="table-container-employee">
 <table>
-  <thead>
+
   <tr>
     <th>Lakosság</th>
     <th>Vállalat</th>
     <th>Pénztár</th>
     <th>Premium</th>
   </tr>
-  </thead>
+
   <tr>
     <td th:text="${retailCount}"></td>
     <td th:text="${corporateCount}"></td>
@@ -28,26 +31,33 @@
     <td th:text="${premiumCount}"></td>
   </tr>
 </table>
-<h2>  <span th:text="${actualPermission}"></span></h2>
+</div>
+
+<h2 class="desk3-name"><span th:text="${actualPermission}"></span></h2>
+
+<div class="table-container-employee">
 <table>
-  <thead>
+
   <tr>
     <th>Várakozók</th>
     <th>Csapat létszám</th>
   </tr>
-  </thead>
-  <tbody>
+
+
   <tr>
     <td th:text="${actualCount}"></td>
     <td th:text="${employeeCount}"></td>
-  </tbody>
-</table>
+  </tr>
 
-<form th:action="@{/employee/closure}" method="get">
-  <button type="submit"> Lezárás</button>
-</form>
+</table>
+</div>
+
+<h2 id="next-customer"> A következő <span th:text="${actualPermission}"></span>i ügyfél:
+  <span th:text="${desk.getQueueNumber().getName()}"></span></h2>
+
+<div class="number-direct">
 <form th:action="@{/employee/redirect}" method="get">
-  <label for="redirectLocation">Sorszám átirányítása:</label>
+  <label id="number-direct-label" for="redirectLocation">Sorszám átirányítása:</label>
   <select id="redirectLocation" name="redirectLocation" required>
     <option value="retail">Lakosság</option>
     <option value="corporate">Vállalat</option>
@@ -56,9 +66,15 @@
   </select>
   <button type="submit">Átirányítás</button>
 </form>
+
+<form th:action="@{/employee/closure}" method="get">
+  <button type="submit"> Lezárás</button>
+</form>
+
 <form th:action="@{/employee/deleteNumber}" method="get">
   <button type="submit"> Törlés</button>
 </form>
+</div>
 
 </body>
 </html>

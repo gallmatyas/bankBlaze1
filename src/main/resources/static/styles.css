@@ -420,16 +420,16 @@ h1 {
     justify-content: center;
     margin: 0 auto;
 }
-
 .action-form select {
-    text-transform: uppercase;
-    font-size: 1.25em;
-    letter-spacing: 0.1em;
-    font-weight: 300;
-    margin-top: 5%;
-    text-align: center;
-    box-shadow: 0 0 5px;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  margin-top: 5%;
+  text-align: center;
+  box-shadow: 0 0 5px;
 }
+
 
 .table-container input[type="radio"] {
     width: 2.8vw;
@@ -500,26 +500,147 @@ h1 {
   color: rgb(22, 131, 233);
   box-shadow: 0 0 35px;
 }
-form {
-  text-align: center;
-}
-.centered-content {
-  text-align: center;
+
+.desk-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
 }
 
-.centered-content h3 {
-  font-family: 'Franklin Gothic Medium', serif;
-  font-size: 40px;
+.desk2-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  padding-top: 4%;
+}
+
+
+.desk1-name {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding-right: 2%;
+  padding-top: 3%;
+  font-size: 2vw;
+}
+
+#id-color{
+  color:rgb(22, 131, 233);
+}
+
+.next-customer-btn {
+  background: #fff;
   color: black;
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 60px;
-
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: 20%;
+  height: 5%;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.frame {
-  border: 2px solid #000;
-  background-color: whitesmoke;
-  padding: 20px;
-  width: fit-content;
+
+.next-customer-btn:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.next-customer-btn:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+.table-container-employee table {
+  padding-top: 2%;
+  width: 70%;
   margin: 0 auto;
+  text-align: center;
+}
+
+.table-container-employee th{
+  font-weight: bold;
+  font-size: 1.5vw;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.table-container-employee td{
+  height: 2em;
+  font-size: 1.5vw;
+  border: 1px solid black;
+  box-shadow: 1px 1px 10px #525151;
+}
+
+.desk3-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  padding-top: 2%;
+}
+
+.number-direct {
+  position: fixed;
+  bottom: 8%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.number-direct button{
+  background: #fff;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  transition: 0.3s;
+  width: auto;
+  height: 2em;
+  margin-right: 10px;
+}
+
+.number-direct button:hover{
+  color: rgb(22, 131, 233);
+  letter-spacing: 0.18em;
+  box-shadow: 0 0 35px;
+}
+
+.number-direct button:before{
+  position: absolute;
+  inset: 2px;
+  background: #fff;
+}
+
+#next-customer{
+  padding-left: 2%;
+  padding-top: 4%;
+}
+
+.number-direct select {
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  text-align: center;
+  box-shadow: 0 0 5px;
+  height: 2em;
+}
+
+#number-direct-label{
+  font-size: 1.25em;
 }
