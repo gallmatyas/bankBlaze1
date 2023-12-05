@@ -45,12 +45,16 @@ public class SecurityConfig {
                                 "/queueCall",
                                 "/styles.css",
                                 "/firstPage",
-                                "/login.css").permitAll()
+                                "/login.css",
+                                "/flashing.css").permitAll()
                         .requestMatchers("/webjars/jquery/jquery.min.js",
                                 "/webjars/sockjs-client/sockjs.min.js",
                                 "/webjars/stomp-websocket/stomp.min.js",
                                 "/SocketConfig.js",
-                                "/bankBlaze-websocket/**").permitAll()
+                                "/bankBlaze-websocket/**",
+                                "/VisualNotification.js").permitAll()
+                        .requestMatchers("/audio/notification.mp3",
+                                "/audio/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
