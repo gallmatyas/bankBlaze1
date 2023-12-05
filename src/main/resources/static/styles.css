@@ -500,3 +500,26 @@ h1 {
   color: rgb(22, 131, 233);
   box-shadow: 0 0 35px;
 }
+form {
+  text-align: center;
+}
+.centered-content {
+  text-align: center;
+}
+
+.centered-content h3 {
+  font-family: 'Franklin Gothic Medium', serif;
+  font-size: 40px;
+  color: black;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 60px;
+
+}
+.frame {
+  border: 2px solid #000;
+  background-color: whitesmoke;
+  padding: 20px;
+  width: fit-content;
+  margin: 0 auto;
+}
