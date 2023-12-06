@@ -37,7 +37,6 @@ public class DeskController {
         model.addAttribute("actualPermission", adminService.setActualPermission(employee));
         model.addAttribute("actualCount", adminService.setActualCount(employee));
         model.addAttribute("employeeCount", adminService.setEmployeeCount(employee));
-
         return "next";
     }
 

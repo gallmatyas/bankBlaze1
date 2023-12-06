@@ -12,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 
 @Controller
@@ -47,18 +45,22 @@ public class AdminController {
     @GetMapping("/statistics")
     public String getStatistics(Model model) {
         model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("retailCount",
+        model.addAttribute("retailLeft",
                 queueNumberService.countRetail() - deskService.countRetailCustomersUnderService());
-        model.addAttribute("retailAtDeskCount", deskService.countRetailCustomersUnderService());
-        model.addAttribute("corporateCount",
+        model.addAttribute("retailAtDesk", deskService.countRetailCustomersUnderService());
+        model.addAttribute("retailSum", queueNumberService.countRetail());
+        model.addAttribute("corporateLeft",
                 queueNumberService.countCorporate() - deskService.countCorporateCustomersUnderService());
-        model.addAttribute("corporateAtDeskCount", deskService.countCorporateCustomersUnderService());
-        model.addAttribute("tellerCount",
+        model.addAttribute("corporateAtDesk", deskService.countCorporateCustomersUnderService());
+        model.addAttribute("corporateSum", queueNumberService.countCorporate());
+        model.addAttribute("tellerLeft",
                 queueNumberService.countTeller() - deskService.countTellerCustomersUnderService());
-        model.addAttribute("tellerAtDeskCount", deskService.countTellerCustomersUnderService());
-        model.addAttribute("premiumCount",
+        model.addAttribute("tellerAtDesk", deskService.countTellerCustomersUnderService());
+        model.addAttribute("tellerSum", queueNumberService.countTeller());
+        model.addAttribute("premiumLeft",
                 queueNumberService.countPremium() - deskService.countPremiumCustomersUnderService());
-        model.addAttribute("premiumAtDeskCount", deskService.countPremiumCustomersUnderService());
+        model.addAttribute("premiumAtDesk", deskService.countPremiumCustomersUnderService());
+        model.addAttribute("premiumSum", queueNumberService.countPremium());
         return "statistics";
     }
 
