@@ -1,5 +1,6 @@
 package hu.bankblaze.bankblaze.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class QueueNumber {
     private Boolean active = true;
 
     @OneToMany(mappedBy = "queueNumber", cascade = CascadeType.REMOVE)
+    @JsonBackReference
     private List<Desk> desks = new ArrayList<>();
 }

@@ -129,4 +129,7 @@ public class PermissionService {
     }
 
 
+    public void deleteEmployee(Long id) {
+      permissionRepository.deleteById(id);
+    }
 }
