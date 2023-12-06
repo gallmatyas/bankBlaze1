@@ -1,7 +1,10 @@
 package hu.bankblaze.bankblaze.controller;
 
+import hu.bankblaze.bankblaze.model.Desk;
 import hu.bankblaze.bankblaze.model.Employee;
 import hu.bankblaze.bankblaze.model.Permission;
+import hu.bankblaze.bankblaze.repo.DeskRepository;
+import hu.bankblaze.bankblaze.repo.EmployeeRepository;
 import hu.bankblaze.bankblaze.service.AdminService;
 import hu.bankblaze.bankblaze.service.DeskService;
 import hu.bankblaze.bankblaze.service.PermissionService;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -102,7 +106,7 @@ public class AdminController {
     public String setManagement(@RequestParam("action") String action, String name) {
         switch (action) {
             case "USER", "inactive" -> adminService.modifyEmployeeByName(name, action);
-            case "delete" -> adminService.deleteAdminByName(name);
+            case "delete" -> adminService.deleteAdminAndRelatedData(name);
         }
 
         return "redirect:/admin";
@@ -119,17 +123,5 @@ public class AdminController {
         queueNumberService.deleteAllQueueNumbers();
         return "redirect:/admin";
     }
-    @GetMapping("/delete")
-    public String showDeleteForm(Model model) {
-        model.addAttribute("admins", adminService.getAllAdmins());
-        model.addAttribute("admins", adminService.getAllClerks());
-        return "delete";
-    }
-    @PostMapping("/delete")
-    public String deleteAdmin(@RequestParam("action") String action, String name) {
-        if (action.equals("delete")) {
-            adminService.deleteAdminByName(name);
-        }
-        return "redirect:/admin";
-    }
+
 }
