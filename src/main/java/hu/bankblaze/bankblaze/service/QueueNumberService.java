@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -21,9 +20,8 @@ public class QueueNumberService {
 
     @Autowired
     private QueueNumberRepository queueNumberRepository;
-    private AdminService adminService;
-    @Autowired
     private DeskRepository deskRepository;
+
 
 
     public void deleteQueueNumberById(Long id) {
@@ -60,10 +58,6 @@ public class QueueNumberService {
 
     public QueueNumber getQueueNumberById(Long id) {
         return queueNumberRepository.findById(id).orElse(null);
-    }
-
-    public List<QueueNumber> getAllQueueNumbers() {
-        return queueNumberRepository.findAll();
     }
 
     public void addQueueNumber(QueueNumber newQueueNumber) {
@@ -112,19 +106,19 @@ public class QueueNumberService {
     }
 
     public int countRetail() {
-        return queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue() - 1;
+        return queueNumberRepository.countByActiveIsTrueAndToRetailIsTrue();
     }
 
     public int countCorporate() {
-        return queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue() - 1;
+        return queueNumberRepository.countByActiveIsTrueAndToCorporateIsTrue();
     }
 
     public int countTeller() {
-        return queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue() - 1;
+        return queueNumberRepository.countByActiveIsTrueAndToTellerIsTrue();
     }
 
     public int countPremium() {
-        return queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue() - 1;
+        return queueNumberRepository.countByActiveIsTrueAndToPremiumIsTrue();
     }
 
     public int getCount() throws Exception {
@@ -137,6 +131,7 @@ public class QueueNumberService {
         }
         throw new Exception();
     }
+
     public QueueNumber getNextRetail() {
         return queueNumberRepository.findFirstByActiveTrueAndToRetailTrue();
     }
@@ -154,6 +149,7 @@ public class QueueNumberService {
 
         return queueNumberRepository.findFirstByActiveTrueAndToPremiumTrue();
     }
+
     public QueueNumber getSmallestNumber(List<QueueNumber> queueNumberList){
         Long minIndex = queueNumberList.get(0).getId();
         for (int i = 1; i < queueNumberList.size(); i++) {

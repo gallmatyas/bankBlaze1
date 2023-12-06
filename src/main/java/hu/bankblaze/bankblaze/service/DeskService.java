@@ -71,7 +71,7 @@ public class DeskService {
         deskRepository.save(desk);
     }
 
-    public boolean nextQueueNumber(Employee employee) {
+    public Desk nextQueueNumber(Employee employee) {
         Desk desk = getDeskByEmployeeId(employee.getId());
         Permission permission = permissionService.getPermissionByEmployee(employee);
         List<QueueNumber> queueNumberList = new ArrayList<>();
@@ -91,10 +91,10 @@ public class DeskService {
             QueueNumber queueNumber = queueNumberService.getSmallestNumber(queueNumberList);
             desk.setQueueNumber(queueNumber);
             deskRepository.save(desk);
-            return true;
+            return desk;
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
     }
 
@@ -102,4 +102,23 @@ public class DeskService {
         return deskRepository.findByQueueNumber(queueNumber);
     }
 
+    public int countCustomersUnderService() {
+        return deskRepository.countByQueueNumberIsNotNull();
+    }
+
+    public int countRetailCustomersUnderService() {
+        return deskRepository.countByQueueNumberIsNotNullAndQueueNumberToRetailIsTrue();
+    }
+
+    public int countCorporateCustomersUnderService() {
+        return deskRepository.countByQueueNumberIsNotNullAndQueueNumberToCorporateIsTrue();
+    }
+
+    public int countTellerCustomersUnderService() {
+        return deskRepository.countByQueueNumberIsNotNullAndQueueNumberToTellerTrue();
+    }
+
+    public int countPremiumCustomersUnderService() {
+        return deskRepository.countByQueueNumberIsNotNullAndQueueNumberToPremiumIsTrue();
+    }
 }
